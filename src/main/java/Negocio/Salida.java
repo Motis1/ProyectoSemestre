@@ -1,33 +1,52 @@
 package Negocio;
-import java.time.LocalDateTime;
+import java.util.Date;
 public class Salida {
-    private Ruta myRuta;
-    private Bus myBus;
+    private String myCodigoRuta;
+    private String myPlacaBus;
     private String estado;
-    private LocalDateTime fechaHora;
+    private Date fechaHora;
     
-    public Salida (Ruta rutaAsignada,Bus busAsignado,String estado, LocalDateTime fechaHora){
-        this.myRuta =  rutaAsignada;
-        this.myBus = busAsignado;
+    public Salida (String rutaAsignada,String busAsignado,String estado, Date fechaHora){
+        this.myCodigoRuta =  rutaAsignada;
+        this.myPlacaBus = busAsignado;
         this.estado = estado;
         this.fechaHora = fechaHora;
     }
 
-    public Ruta getMyRuta() {
-        return myRuta;
+    public String getMyCodigoRuta() {
+        return myCodigoRuta;
     }
 
-    public Bus getMyBus() {
-        return myBus;
+    public void setMyCodigoRuta(String myCodigoRuta) {
+        this.myCodigoRuta = myCodigoRuta;
+    }
+
+    public String getMyPlacaBus() {
+        return myPlacaBus;
+    }
+
+    public void setMyPlacaBus(String myPlacaBus) {
+        this.myPlacaBus = myPlacaBus;
     }
 
     public String getEstado() {
         return estado;
     }
 
-    public LocalDateTime getFechaHora() {
+    public void setEstado(String estado) {
+        this.estado = estado;
+    }
+
+    public Date getFechaHora() {
         return fechaHora;
     }
 
-    
+    public void setFechaHora(Date fechaHora) {
+        this.fechaHora = fechaHora;
+    }
+
+    @Override
+    public String toString() {
+        return "Ruta: " + myCodigoRuta + "\nBus asignado: " + myPlacaBus + "\nEstado:" + estado + "\n Fecha y hora:" + fechaHora;
+    }
 }

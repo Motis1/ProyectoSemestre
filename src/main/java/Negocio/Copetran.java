@@ -1,6 +1,6 @@
 package Negocio;
-import java.time.LocalDateTime;
 import java.util.ArrayList;
+import java.util.Date;
 
 
 public class Copetran {
@@ -16,11 +16,15 @@ public class Copetran {
         this.listaRutas = new ArrayList<>();
         this.listaSalidas = new ArrayList<>();
         this.listaPasajes = new ArrayList<>();
+        estadoSalidas();
     }
     
-    //QUITAR EL PARAMETRO DE ESTADO.. CORREGIR LA VISTA
-    public String busesCopetran(String placaUnica,String tipoServicio,String estado){
+    //BUSES
+    public String registrarBusesCopetran(String placaUnica,String tipoServicio,String estado){
         //NO SE PUEDE CREAR OBJETOS Y ALMACENARLOS SIN ANTES VALIDAR 
+        if(validarPlaca(placaUnica)){
+            return "BUS YA EXISTENTE";
+        }
         Bus nuevo = new Bus(placaUnica,tipoServicio,estado);
         this.listaBuses.add(nuevo);
         return "CAMION REGISTRADO CON EXITO" + "\n" + nuevo.toString();
@@ -38,10 +42,32 @@ public class Copetran {
         return existe;
     }
     
-    public String rutasCopetran(String codigo,String origen, String destino, int tarifa ){
+    public String buscarBus(String placa){
+         for (Bus b : listaBuses) {
+            if(b.getPlacaUnica().equalsIgnoreCase(placa)){
+                return b.getPlacaUnica();
+            }
+        }
+         return "BUS NO ENCONTRADO";
+    }
+    
+    public ArrayList<String> placaBuses(){
+        ArrayList<String> lista = new ArrayList<>();
+        for (int i = 0; i < listaBuses.size(); i++) {
+            lista.add(this.listaBuses.get(i).getPlacaUnica());
+        } 
+        return lista;
+    }
+    
+    // RUTAS
+    public String registrarRutasCopetran(String codigo,String origen, String destino, int tarifa ){
+        if(this.validarRuta(codigo, origen, destino)){
+            return "RUTA YA EXISTENTE";
+        }
+        
         Ruta rutaNueva = new Ruta(codigo,origen,destino,tarifa);
         this.listaRutas.add(rutaNueva);
-        return "CAMION RUTA CON EXITO" + "\n" + rutaNueva.toString();
+        return "RUTA REGISTRADA CON EXITO" + "\n" + rutaNueva.toString();
     }
     
     public boolean validarRuta (String codigo,String origen,String destino){
@@ -55,20 +81,45 @@ public class Copetran {
         return existe;
     }
     
-    //PILASSSSS NO SE PUEDEN RECIBIR OBJETOS 
-     
-    public String salidasCopetran(Ruta rutaSeleccioanda,Bus busSeleccionado,String estado,LocalDateTime fechaHora ){
-        Salida salidaNueva = new Salida(rutaSeleccioanda,busSeleccionado,estado,fechaHora);
-        this.listaSalidas.add(salidaNueva);
-        return "CAMION RUTA CON EXITO" + "\n" + salidaNueva.toString();
+    public String buscarRuta (String codigo){
+        for (Ruta r : listaRutas) {
+            if(r.getCodigo().equalsIgnoreCase(codigo)){
+                return r.getCodigo();
+            }
+        }
+         return "RUTA NO ENCONTRADA";
+    }
+    public ArrayList<String> codigoRutas(){
+        ArrayList<String> lista = new ArrayList<>();
+        for (int i = 0; i < listaRutas.size(); i++) {
+            String codigo = this.listaRutas.get(i).getCodigo();
+            String origen = this.listaRutas.get(i).getOrigen();
+            String destino = this.listaRutas.get(i).getDestino();
+            lista.add(codigo + " / " + origen + " - " + destino);
+        } 
+        return lista;
     }
     
-    //  PROFESORA: UN RF NO PUEDE RECIBIR OBJETOS DEL NEGOCIO,ERRADA LA PROGRAMACIÓN
-    //PROFESORA:  REVISAR CONCEPTOS..   OJO DEBE ESTAR EL METODO DE REGISTRAR BUSES, ASÍ COMO REGISTRAR NUEVAS RUTAS
-    //PROFESORA: Y REGISTRAR NUEVAS SALIDAS..
+    // SALIDAS
+    private void estadoSalidas(){
+        for (int i = 0; i < listaSalidas.size(); i++) {
+            this.listaSalidas.get(i).setEstado("PROGRAMADA");
+        }
+    }
+    
+    //PILASSSSS NO SE PUEDEN RECIBIR OBJETOS 
+     
+    public String registrarSalidasCopetran(String rutaSeleccionada,String busSeleccionada,String estado,Date fechaHora ){
+       String rutaValidada = this.buscarBus(rutaSeleccionada);
+       String busValidado = this.buscarBus(busSeleccionada);
+       
+       Salida salidaRegistrada = new Salida(rutaValidada, busValidado, estado, fechaHora);
+       this.listaSalidas.add(salidaRegistrada);
+       return "RUTA REGISTRADA CON EXITO: " + "\n" + salidaRegistrada.toString();
+    }
     
     public boolean venderPasaje(Salida salidaElegida, Puesto puestoElegido, Persona pasajero){
-        if(puestoElegido.isOcupado()||!salidaElegida.getEstado().equalsIgnoreCase("PROGRAMADO")){
+        /*if(puestoElegido.isOcupado()||!salidaElegida.getEstado().equalsIgnoreCase("PROGRAMADO")){
             return false; // no se puede vender 
         }
         float valor = salidaElegida.getMyRuta().getTarifaBase();
@@ -77,7 +128,7 @@ public class Copetran {
         }
         Pasaje myPasaje = new Pasaje(pasajero,salidaElegida,puestoElegido,valor);
         this.listaPasajes.add(myPasaje);
-        this.cajaCopetran.setTotalVendido(this.cajaCopetran.getTotalVendido()+ valor);
+        this.cajaCopetran.setTotalVendido(this.cajaCopetran.getTotalVendido()+ valor);*/
         return true; // venta existosa
     }
     

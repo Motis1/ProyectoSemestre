@@ -45,9 +45,11 @@ public class FormEmpresa extends javax.swing.JFrame {
 
         cmdAdmin.setFont(new java.awt.Font("Segoe UI", 1, 24)); // NOI18N
         cmdAdmin.setText("Administracion");
+        cmdAdmin.addActionListener(this::cmdAdminActionPerformed);
 
         cmdCliente.setFont(new java.awt.Font("Segoe UI", 1, 24)); // NOI18N
         cmdCliente.setText("Clientes");
+        cmdCliente.addActionListener(this::cmdClienteActionPerformed);
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -79,6 +81,18 @@ public class FormEmpresa extends javax.swing.JFrame {
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
+
+    private void cmdAdminActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cmdAdminActionPerformed
+        // TODO add your handling code here:
+        /*Venta22 mySec = new Venta22(this.myPrincipal); 
+        mySec.setVisible(true);*/
+        FormAdmin mySec = new FormAdmin(this.myPrincipal);
+        mySec.setVisible(true);
+    }//GEN-LAST:event_cmdAdminActionPerformed
+
+    private void cmdClienteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cmdClienteActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_cmdClienteActionPerformed
 
     /**
      * @param args the command line arguments

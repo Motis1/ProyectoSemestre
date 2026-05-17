@@ -43,4 +43,12 @@ public class Ruta {
     public void setTarifaBase(int tarifaBase) {
         this.tarifaBase = tarifaBase;
     }
+
+    @Override
+    public String toString() {
+        return "Codigo: " + codigo + 
+               "\nOrigen: " + origen + 
+               "\nDestino: " + destino + 
+               "\nTarifa base: " + tarifaBase;
+    }
 }
