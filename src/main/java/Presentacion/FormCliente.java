@@ -4,23 +4,18 @@
  */
 package Presentacion;
 
-import Negocio.Copetran;
-import javax.swing.JButton;
-
 /**
  *
  * @author GAMEMAX
  */
-public class FormNormal extends javax.swing.JFrame {
+public class FormCliente extends javax.swing.JFrame {
     
-    private static final java.util.logging.Logger logger = java.util.logging.Logger.getLogger(FormNormal.class.getName());
-    private Copetran myEcopetran;
-    private JButton[] botonesPuestos;
+    private static final java.util.logging.Logger logger = java.util.logging.Logger.getLogger(FormCliente.class.getName());
 
     /**
-     * Creates new form FormNormal
+     * Creates new form FormCliente
      */
-    public FormNormal() {
+    public FormCliente() {
         initComponents();
     }
 
@@ -33,18 +28,17 @@ public class FormNormal extends javax.swing.JFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
-        setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
-        setTitle("BUS NORMAL");
+        setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 1361, Short.MAX_VALUE)
+            .addGap(0, 400, Short.MAX_VALUE)
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 844, Short.MAX_VALUE)
+            .addGap(0, 300, Short.MAX_VALUE)
         );
 
         pack();
@@ -72,7 +66,7 @@ public class FormNormal extends javax.swing.JFrame {
         //</editor-fold>
 
         /* Create and display the form */
-        java.awt.EventQueue.invokeLater(() -> new FormNormal().setVisible(true));
+        java.awt.EventQueue.invokeLater(() -> new FormCliente().setVisible(true));
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables

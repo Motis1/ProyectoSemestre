@@ -4,6 +4,8 @@
  */
 package Presentacion;
 
+import Negocio.Copetran;
+
 /**
  *
  * @author GAMEMAX
@@ -11,12 +13,14 @@ package Presentacion;
 public class FormEmpresa extends javax.swing.JFrame {
     
     private static final java.util.logging.Logger logger = java.util.logging.Logger.getLogger(FormEmpresa.class.getName());
+    private Copetran myPrincipal;
 
     /**
      * Creates new form FormEmpresa
      */
     public FormEmpresa() {
         initComponents();
+        this.myPrincipal = new Copetran();
     }
 
     /**
@@ -29,18 +33,8 @@ public class FormEmpresa extends javax.swing.JFrame {
     private void initComponents() {
 
         jLabel1 = new javax.swing.JLabel();
-        jLabel2 = new javax.swing.JLabel();
-        txtNombre = new java.awt.TextField();
-        jLabel3 = new javax.swing.JLabel();
-        jLabel4 = new javax.swing.JLabel();
-        jLabel5 = new javax.swing.JLabel();
-        txtCedula = new java.awt.TextField();
-        txtCelular = new java.awt.TextField();
-        cmdRegistrarPasajero = new javax.swing.JToggleButton();
-        cmdListarSalidas = new javax.swing.JButton();
-        cmdComprarTiquet = new javax.swing.JButton();
-        cmdCancelarSalida = new javax.swing.JButton();
-        cmdReprogramarSalida = new javax.swing.JButton();
+        cmdAdmin = new javax.swing.JButton();
+        cmdCliente = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setTitle("INICIO");
@@ -49,66 +43,27 @@ public class FormEmpresa extends javax.swing.JFrame {
         jLabel1.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         jLabel1.setText("COPETRAN");
 
-        jLabel2.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
-        jLabel2.setText("REGISTRO");
+        cmdAdmin.setFont(new java.awt.Font("Segoe UI", 1, 24)); // NOI18N
+        cmdAdmin.setText("Administracion");
 
-        jLabel3.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
-        jLabel3.setText("Cedula:");
-
-        jLabel4.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
-        jLabel4.setText("Nombre:");
-
-        jLabel5.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
-        jLabel5.setText("Celular:");
-
-        cmdRegistrarPasajero.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
-        cmdRegistrarPasajero.setText("REGISTRAR");
-        cmdRegistrarPasajero.addActionListener(this::cmdRegistrarPasajeroActionPerformed);
-
-        cmdListarSalidas.setText("MIRAR SALIDAS PROGRAMADAS");
-        cmdListarSalidas.addActionListener(this::cmdListarSalidasActionPerformed);
-
-        cmdComprarTiquet.setText("COMPRAR TIQUET");
-        cmdComprarTiquet.addActionListener(this::cmdComprarTiquetActionPerformed);
-
-        cmdCancelarSalida.setText("CANCELAR SALIDA");
-        cmdCancelarSalida.addActionListener(this::cmdCancelarSalidaActionPerformed);
-
-        cmdReprogramarSalida.setText("REPROGRAMAR SALIDA ");
-        cmdReprogramarSalida.addActionListener(this::cmdReprogramarSalidaActionPerformed);
+        cmdCliente.setFont(new java.awt.Font("Segoe UI", 1, 24)); // NOI18N
+        cmdCliente.setText("Clientes");
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addContainerGap()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
-                        .addComponent(jLabel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addContainerGap())
+                        .addGap(25, 25, 25)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                            .addComponent(cmdAdmin, javax.swing.GroupLayout.PREFERRED_SIZE, 359, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(cmdCliente, javax.swing.GroupLayout.PREFERRED_SIZE, 359, javax.swing.GroupLayout.PREFERRED_SIZE)))
                     .addGroup(layout.createSequentialGroup()
-                        .addGap(19, 19, 19)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                            .addComponent(jLabel2, javax.swing.GroupLayout.PREFERRED_SIZE, 135, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addGroup(layout.createSequentialGroup()
-                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addComponent(jLabel4, javax.swing.GroupLayout.PREFERRED_SIZE, 110, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                    .addComponent(jLabel3, javax.swing.GroupLayout.PREFERRED_SIZE, 110, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                    .addComponent(jLabel5, javax.swing.GroupLayout.PREFERRED_SIZE, 110, javax.swing.GroupLayout.PREFERRED_SIZE))
-                                .addGap(18, 18, 18)
-                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                                    .addComponent(txtCedula, javax.swing.GroupLayout.DEFAULT_SIZE, 194, Short.MAX_VALUE)
-                                    .addComponent(txtNombre, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                    .addComponent(txtCelular, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
-                            .addComponent(cmdRegistrarPasajero, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 40, Short.MAX_VALUE)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(cmdListarSalidas, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 313, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(cmdComprarTiquet, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 313, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(cmdCancelarSalida, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 313, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(cmdReprogramarSalida, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 313, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addGap(24, 24, 24))))
+                        .addContainerGap()
+                        .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 405, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -116,57 +71,14 @@ public class FormEmpresa extends javax.swing.JFrame {
                 .addContainerGap()
                 .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 76, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18)
-                .addComponent(jLabel2, javax.swing.GroupLayout.PREFERRED_SIZE, 36, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(layout.createSequentialGroup()
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                            .addComponent(txtCedula, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addGroup(layout.createSequentialGroup()
-                                .addComponent(jLabel4, javax.swing.GroupLayout.PREFERRED_SIZE, 20, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addGap(18, 18, 18)
-                                .addComponent(jLabel3)))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 38, Short.MAX_VALUE)
-                        .addComponent(jLabel5))
-                    .addGroup(layout.createSequentialGroup()
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(txtNombre, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(cmdListarSalidas))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addComponent(cmdComprarTiquet)
-                        .addGap(15, 15, 15)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(txtCelular, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(cmdCancelarSalida))))
-                .addGap(18, 18, 18)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(cmdReprogramarSalida)
-                    .addComponent(cmdRegistrarPasajero))
-                .addContainerGap(83, Short.MAX_VALUE))
+                .addComponent(cmdAdmin, javax.swing.GroupLayout.PREFERRED_SIZE, 45, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addComponent(cmdCliente, javax.swing.GroupLayout.PREFERRED_SIZE, 45, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(35, Short.MAX_VALUE))
         );
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
-
-    private void cmdRegistrarPasajeroActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cmdRegistrarPasajeroActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_cmdRegistrarPasajeroActionPerformed
-
-    private void cmdListarSalidasActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cmdListarSalidasActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_cmdListarSalidasActionPerformed
-
-    private void cmdComprarTiquetActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cmdComprarTiquetActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_cmdComprarTiquetActionPerformed
-
-    private void cmdCancelarSalidaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cmdCancelarSalidaActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_cmdCancelarSalidaActionPerformed
-
-    private void cmdReprogramarSalidaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cmdReprogramarSalidaActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_cmdReprogramarSalidaActionPerformed
 
     /**
      * @param args the command line arguments
@@ -194,18 +106,8 @@ public class FormEmpresa extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JButton cmdCancelarSalida;
-    private javax.swing.JButton cmdComprarTiquet;
-    private javax.swing.JButton cmdListarSalidas;
-    private javax.swing.JToggleButton cmdRegistrarPasajero;
-    private javax.swing.JButton cmdReprogramarSalida;
+    private javax.swing.JButton cmdAdmin;
+    private javax.swing.JButton cmdCliente;
     private javax.swing.JLabel jLabel1;
-    private javax.swing.JLabel jLabel2;
-    private javax.swing.JLabel jLabel3;
-    private javax.swing.JLabel jLabel4;
-    private javax.swing.JLabel jLabel5;
-    private java.awt.TextField txtCedula;
-    private java.awt.TextField txtCelular;
-    private java.awt.TextField txtNombre;
     // End of variables declaration//GEN-END:variables
 }

@@ -1,21 +1,15 @@
 package Negocio;
 public class Persona {
-    private String cedula;
     private String nombre;
-    private String cel;
-    
-    private Persona (String cedula,String nombre,String cel){
-        this.cedula = cedula;
+    private String cedula;
+    private String celular;
+    private String correo;
+
+    public Persona(String nombre, String cedula, String celular, String correo) {
         this.nombre = nombre;
-        this.cel = cel;
-    }
-
-    public String getCedula() {
-        return cedula;
-    }
-
-    public void setCedula(String cedula) {
         this.cedula = cedula;
+        this.celular = celular;
+        this.correo = correo;
     }
 
     public String getNombre() {
@@ -26,11 +20,35 @@ public class Persona {
         this.nombre = nombre;
     }
 
-    public String getCel() {
-        return cel;
+    public String getCedula() {
+        return cedula;
     }
 
-    public void setCel(String cel) {
-        this.cel = cel;
+    public void setCedula(String cedula) {
+        this.cedula = cedula;
+    }
+
+    public String getCelular() {
+        return celular;
+    }
+
+    public void setCelular(String celular) {
+        this.celular = celular;
+    }
+
+    public String getCorreo() {
+        return correo;
+    }
+
+    public void setCorreo(String correo) {
+        this.correo = correo;
+    }
+
+    @Override
+    public String toString() {
+        return "Nombre: " + nombre + 
+               "\nCedula: " + cedula + 
+               "\nCelular: " + celular + 
+               "\nCorreo: " + correo;
     }
 }

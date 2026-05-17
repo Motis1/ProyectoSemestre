@@ -16,8 +16,6 @@ public class Copetran {
         this.listaRutas = new ArrayList<>();
         this.listaSalidas = new ArrayList<>();
         this.listaPasajes = new ArrayList<>();
-        //PROFESORA:  Valores de caja  OJOOO 
-         //PROFESORA:  SE DEBERÍA SOLICITAR COMO RF.
     }
     
     //QUITAR EL PARAMETRO DE ESTADO.. CORREGIR LA VISTA
