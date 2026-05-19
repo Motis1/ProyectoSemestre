@@ -8,6 +8,7 @@ public class Copetran {
     private ArrayList<Ruta> listaRutas;
     private ArrayList<Salida> listaSalidas;
     private ArrayList<Pasaje> listaPasajes;
+    private ArrayList<Persona> listaPersonas;
     private Caja cajaCopetran;
     
     
@@ -16,6 +17,7 @@ public class Copetran {
         this.listaRutas = new ArrayList<>();
         this.listaSalidas = new ArrayList<>();
         this.listaPasajes = new ArrayList<>();
+        this.listaPersonas = new ArrayList<>();
         estadoSalidas();
     }
     
@@ -31,7 +33,7 @@ public class Copetran {
     }
     
     //TODOS LOS METODOS DE BUSQUEDA DE EXISTENCIA DE OBJETOS SE DEBE TRABAJAR private
-    public boolean validarPlaca(String placa){
+    private boolean validarPlaca(String placa){
         boolean existe = false;
         for(Bus c : this.listaBuses){
             if(c.getPlacaUnica().equalsIgnoreCase(placa)){
@@ -70,7 +72,7 @@ public class Copetran {
         return "RUTA REGISTRADA CON EXITO" + "\n" + rutaNueva.toString();
     }
     
-    public boolean validarRuta (String codigo,String origen,String destino){
+    private boolean validarRuta (String codigo,String origen,String destino){
         boolean existe = false;
         for(Ruta c : this.listaRutas){
             if(c.getCodigo().equalsIgnoreCase(codigo)||c.getOrigen().equalsIgnoreCase(origen)&&c.getDestino().equalsIgnoreCase(destino)){
@@ -118,18 +120,37 @@ public class Copetran {
        return "RUTA REGISTRADA CON EXITO: " + "\n" + salidaRegistrada.toString();
     }
     
-    public boolean venderPasaje(Salida salidaElegida, Puesto puestoElegido, Persona pasajero){
-        /*if(puestoElegido.isOcupado()||!salidaElegida.getEstado().equalsIgnoreCase("PROGRAMADO")){
-            return false; // no se puede vender 
+    //PERSONAS
+    //registro coductor
+    public String conductorRegistro(String añosExperiencia, String nombre, String cedula, String celular, String correo, int sueldo){
+        String registro = "CONDCUTOR REGISTRADO CON EXITO";
+        if(validarCedula(cedula)){
+            return "CONDUCTOR YA REGISTRADO";
         }
-        float valor = salidaElegida.getMyRuta().getTarifaBase();
-        if(salidaElegida.getMyBus().getTipoServicio().equalsIgnoreCase("Ejecutivo")){
-            valor+=(valor*0.2);
-        }
-        Pasaje myPasaje = new Pasaje(pasajero,salidaElegida,puestoElegido,valor);
-        this.listaPasajes.add(myPasaje);
-        this.cajaCopetran.setTotalVendido(this.cajaCopetran.getTotalVendido()+ valor);*/
-        return true; // venta existosa
+        Conductor conductorNuevo = new Conductor(añosExperiencia, nombre, cedula, celular, correo, sueldo);
+        listaPersonas.add(conductorNuevo);
+        registro += "\n" + conductorNuevo.toString();
+        return registro;
     }
-    
+    //buscar nombre conductor
+    public ArrayList<String> nombresConductores(){
+        ArrayList<String> nombres = new ArrayList<>();
+        for (Persona p : listaPersonas) {
+            if( p instanceof Conductor){
+                nombres.add(p.getNombre());
+            }
+        }
+        return nombres;
+    }
+    //validacion personas 
+    private boolean validarCedula(String cedula){
+        boolean existe = false;
+        for (Persona p : listaPersonas) {
+            if(p.getCedula().equalsIgnoreCase(cedula)){
+                existe = true;
+                break;
+            }
+        }
+        return existe;
+    }
 }

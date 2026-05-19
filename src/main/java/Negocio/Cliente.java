@@ -1,20 +1,12 @@
 package Negocio;
 public class Cliente extends Persona {
     private String añoInscripcion;
-    private String compras;
+    private float totalCompras;
 
-    public Cliente(String añoInscripcion, String nombre, String cedula, String celular, String correo,String compras) {
+    public Cliente(String añoInscripcion, String nombre, String cedula, String celular, String correo,float totalCompras) {
         super(nombre, cedula, celular, correo);
         this.añoInscripcion = añoInscripcion;
-        this.compras = compras;
-    }
-
-    public String getCompras() {
-        return compras;
-    }
-
-    public void setCompras(String compras) {
-        this.compras = compras;
+        this.totalCompras = totalCompras;
     }
 
     public String getAñoInscripcion() {
@@ -25,5 +17,18 @@ public class Cliente extends Persona {
         this.añoInscripcion = añoInscripcion;
     }
 
-    
+    public float getTotalCompras() {
+        return totalCompras;
+    }
+
+    public void setTotalCompras(float totalCompras) {
+        this.totalCompras = totalCompras;
+    }
+
+    @Override
+    public String toString() {
+        return "Datos personales:\n" + super.toString() + 
+               "\nAño de inscripcion: " + añoInscripcion + 
+               "\nTotal compras: " + totalCompras;
+    }
 }
