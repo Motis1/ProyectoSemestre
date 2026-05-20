@@ -4,20 +4,22 @@ public class Bus {
     private String tipoServicio;
     private String estado;
     private Puesto[] myPuestos;
+    private String conductor;
     private int capacidad;
     
-    public Bus(String placaUnica, String tipoServicio, String estado){
+    public Bus(String placaUnica, String tipoServicio,String conductor){
         this.placaUnica = placaUnica;
         this.tipoServicio = tipoServicio;
-        this.estado = estado;
+        this.estado = "DISPONIBLE";
+        this.conductor = conductor;
         this.crearEspacio();
         this.crearPuesto();
     }
     
     private void crearEspacio(){
-        if(tipoServicio.equalsIgnoreCase("EJECUTIVO")){
+        if(tipoServicio.equalsIgnoreCase("NORMAL")){
             capacidad = 30;
-        }else if(tipoServicio.equalsIgnoreCase("NORMAL")){
+        }else if(tipoServicio.equalsIgnoreCase("EJECUTIVO")){
             capacidad = 40;
         }
         this.crearPuesto();
@@ -27,6 +29,14 @@ public class Bus {
         for(int i=0;i<capacidad;i++){
             this.myPuestos[i] = new Puesto(i+1);
         }
+    }
+
+    public String getConductor() {
+        return conductor;
+    }
+
+    public void setConductor(String conductor) {
+        this.conductor = conductor;
     }
 
     public String getPlacaUnica() {
@@ -63,7 +73,8 @@ public class Bus {
     public String toString() {
         return "Placa: " + placaUnica + 
                "\nTipo de servicio: " + tipoServicio + 
-               "\nEstado: " + estado + 
+               "\nEstado: " + estado +
+               "\nConductor : " + conductor + 
                "\nCapacidad: " + capacidad;
     }
     

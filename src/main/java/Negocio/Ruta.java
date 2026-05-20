@@ -5,9 +5,9 @@ public class Ruta {
     private String destino;
     private int tarifaBase;
     
-    public Ruta (String codigo,String origen, String destino, int tarifa){
+    public Ruta (String codigo, String destino, int tarifa){
         this.codigo = codigo;
-        this.origen = origen;
+        this.origen = "CUCUTA";
         this.destino = destino;
         this.tarifaBase = tarifa;
     }

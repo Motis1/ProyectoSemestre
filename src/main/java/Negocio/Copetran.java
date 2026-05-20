@@ -22,14 +22,17 @@ public class Copetran {
     }
     
     //BUSES
-    public String registrarBusesCopetran(String placaUnica,String tipoServicio,String estado){
+    public String registrarBusesCopetran(String placaUnica,String tipoServicio, String conductor){
         //NO SE PUEDE CREAR OBJETOS Y ALMACENARLOS SIN ANTES VALIDAR 
         if(validarPlaca(placaUnica)){
             return "BUS YA EXISTENTE";
         }
-        Bus nuevo = new Bus(placaUnica,tipoServicio,estado);
+        if(validarConductor(conductor)){
+            return "CONDUCTOR YA ASIGNADO, ESCOGA OTRO";
+        }
+        Bus nuevo = new Bus(placaUnica,tipoServicio,conductor);
         this.listaBuses.add(nuevo);
-        return "CAMION REGISTRADO CON EXITO" + "\n" + nuevo.toString();
+        return "BUS REGISTRADO CON EXITO" + "\n" + nuevo.toString();
     }
     
     //TODOS LOS METODOS DE BUSQUEDA DE EXISTENCIA DE OBJETOS SE DEBE TRABAJAR private
@@ -37,6 +40,17 @@ public class Copetran {
         boolean existe = false;
         for(Bus c : this.listaBuses){
             if(c.getPlacaUnica().equalsIgnoreCase(placa)){
+                existe = true;
+                break;
+            }
+        }
+        return existe;
+    }
+    
+    private boolean validarConductor(String conductor){
+        boolean existe = false;
+        for (Bus b : listaBuses) {
+            if(b.getConductor().equalsIgnoreCase(conductor)){
                 existe = true;
                 break;
             }
@@ -60,22 +74,33 @@ public class Copetran {
         } 
         return lista;
     }
+    public String busesListado(){
+        String lista = "LISTADO DE BUSES\n";
+        if(listaBuses.isEmpty()){
+            return "NO HAY CAMIONES REGISTRADO";
+        }
+        for (Bus b : listaBuses) {
+            lista+=b.toString() + "\n--------------------------------\n";
+        } 
+        return lista;
+    }
     
     // RUTAS
-    public String registrarRutasCopetran(String codigo,String origen, String destino, int tarifa ){
-        if(this.validarRuta(codigo, origen, destino)){
+    
+    public String registrarRutasCopetran(String codigo, String destino, int tarifa ){
+        if(this.validarRuta(codigo, destino)){
             return "RUTA YA EXISTENTE";
         }
         
-        Ruta rutaNueva = new Ruta(codigo,origen,destino,tarifa);
+        Ruta rutaNueva = new Ruta(codigo,destino,tarifa);
         this.listaRutas.add(rutaNueva);
         return "RUTA REGISTRADA CON EXITO" + "\n" + rutaNueva.toString();
     }
     
-    private boolean validarRuta (String codigo,String origen,String destino){
+    private boolean validarRuta (String codigo,String destino){
         boolean existe = false;
         for(Ruta c : this.listaRutas){
-            if(c.getCodigo().equalsIgnoreCase(codigo)||c.getOrigen().equalsIgnoreCase(origen)&&c.getDestino().equalsIgnoreCase(destino)){
+            if(c.getCodigo().equalsIgnoreCase(codigo)||c.getDestino().equalsIgnoreCase(destino)){
                 existe = true;
                 break;
             }
@@ -102,22 +127,42 @@ public class Copetran {
         return lista;
     }
     
+    public String rutasListado(){
+        String lista = "LISTADO DE RUTAS\n";
+        if(listaBuses.isEmpty()){
+            return "NO HAY RUTAS REGISTRADAS";
+        }
+        for (Ruta r : listaRutas) {
+            lista+=r.toString() + "\n--------------------------------\n";
+        } 
+        return lista;
+    }
+    
     // SALIDAS
     private void estadoSalidas(){
         for (int i = 0; i < listaSalidas.size(); i++) {
             this.listaSalidas.get(i).setEstado("PROGRAMADA");
         }
     }
-    
-    //PILASSSSS NO SE PUEDEN RECIBIR OBJETOS 
      
     public String registrarSalidasCopetran(String rutaSeleccionada,String busSeleccionada,String estado,Date fechaHora ){
-       String rutaValidada = this.buscarBus(rutaSeleccionada);
+       String rutaValidada = this.buscarRuta(rutaSeleccionada);
        String busValidado = this.buscarBus(busSeleccionada);
        
        Salida salidaRegistrada = new Salida(rutaValidada, busValidado, estado, fechaHora);
        this.listaSalidas.add(salidaRegistrada);
        return "RUTA REGISTRADA CON EXITO: " + "\n" + salidaRegistrada.toString();
+    }
+    
+    public String salidasListado(){
+        String lista = "LISTADO DE SALIDAS\n";
+        if(listaSalidas.isEmpty()){
+            return "NO HAY SALIDAS REGISTRADAS";
+        }
+        for (Salida s : listaSalidas) {
+            lista+=s.toString() + "\n--------------------------------\n";
+        } 
+        return lista;
     }
     
     //PERSONAS
@@ -132,6 +177,7 @@ public class Copetran {
         registro += "\n" + conductorNuevo.toString();
         return registro;
     }
+    
     //buscar nombre conductor
     public ArrayList<String> nombresConductores(){
         ArrayList<String> nombres = new ArrayList<>();
@@ -142,6 +188,20 @@ public class Copetran {
         }
         return nombres;
     }
+    
+    public String conductoresListado(){
+        String lista = "LISTADO DE CONDUCTORES\n";
+        if(listaPersonas.isEmpty()){
+            return "NO HAY CONDUCTORES REGISTRADOS";
+        }
+        for (Persona p : listaPersonas) {
+            if(p instanceof Conductor){
+                lista+=p.toString() + "\n--------------------------------\n";
+            }
+        } 
+        return lista;
+    }
+    
     //validacion personas 
     private boolean validarCedula(String cedula){
         boolean existe = false;
