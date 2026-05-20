@@ -142,12 +142,12 @@ public class Copetran {
     
     //REGISTROS DE PERSONAS
     //REGISTROS Y METODOS DE CONDUCTORES
-    public String conductorRegistro(String nombre, String cedula, String celular, String correo, String añosExperiencia, int sueldo){
+    public String conductorRegistro(String nombre, String cedula, String celular, String correo,String añosExperiencia, int sueldo){
         String registro = "CONDCUTOR REGISTRADO CON EXITO\n";
         if(validarCedula(cedula)){
             return "CONDUCTOR YA REGISTRADO";
         }
-        Conductor conductorNuevo = new Conductor(añosExperiencia, nombre, cedula, celular, correo, sueldo);
+        Conductor conductorNuevo = new Conductor(nombre, cedula, celular, correo, añosExperiencia, sueldo);
         listaPersonas.add(conductorNuevo);
         registro += conductorNuevo.toString();
         return registro;

@@ -456,7 +456,7 @@ public class FormAdmin extends javax.swing.JFrame {
         String exp = this.txtExp.getText();
         int sueldo = Integer.parseInt(this.txtSueldo.getText());
         
-        String reporte = this.myCopetran.conductorRegistro(nombre, cc, cel, exp, correo, sueldo);
+        String reporte = this.myCopetran.conductorRegistro(nombre, cc, cel, correo,exp, sueldo);
         this.txtMostrar.setText(reporte);
         
         if(reporte.contains("CONDCUTOR REGISTRADO CON EXITO")){
