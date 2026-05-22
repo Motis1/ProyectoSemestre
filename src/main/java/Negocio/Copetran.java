@@ -28,7 +28,7 @@ public class Copetran {
         Conductor asignado = buscarConductor(nombreConductor);
         Bus nuevo = new Bus(placaUnica,tipoServicio,asignado);
         this.listaBuses.add(nuevo);
-        return "BUS REGISTRADO CON EXITO\n" + nuevo.toString();
+        return "BUS REGISTRADO CON EXITO\n\n" + nuevo.toString();
     }
     //VALIDACION DE PLACA
     private boolean validarPlaca(String placa){
@@ -59,7 +59,7 @@ public class Copetran {
         return lista;
     }
     public String busesListado(){
-        String lista = "LISTADO DE BUSES\n";
+        String lista = "LISTADO DE BUSES\n\n";
         if(listaBuses.isEmpty()){
             return "NO HAY CAMIONES REGISTRADO";
         }
@@ -77,7 +77,7 @@ public class Copetran {
         }
         Ruta nueva = new Ruta(destino, tarifa);
         this.listaRutas.add(nueva);
-        return "RUTA REGISTRADA CON EXITO\n"+ nueva.toString();
+        return "RUTA REGISTRADA CON EXITO\n\n"+ nueva.toString();
     }
     //VALIDACION DE LAS RUTAS
     private boolean validarRuta (String destino){
@@ -109,7 +109,7 @@ public class Copetran {
     }
     //LISTAR RUTAS
     public String rutasListado(){
-        String lista = "LISTADO DE RUTAS\n";
+        String lista = "LISTADO DE RUTAS\n\n";
         if(listaBuses.isEmpty()){
             return "NO HAY RUTAS REGISTRADAS";
         }
@@ -126,11 +126,11 @@ public class Copetran {
        
        Salida salidaNueva = new Salida(rutaSalida, busSalida, fechaHora);
        this.listaSalidas.add(salidaNueva);
-       return "RUTA REGISTRADA CON EXITO: \n" + salidaNueva.toString();
+       return "RUTA REGISTRADA CON EXITO: \n\n" + salidaNueva.toString();
     }
     //LISTAR SALIDAS
     public String salidasListado(){
-        String lista = "LISTADO DE SALIDAS\n";
+        String lista = "LISTADO DE SALIDAS\n\n";
         if(listaSalidas.isEmpty()){
             return "NO HAY SALIDAS REGISTRADAS";
         }
@@ -143,7 +143,7 @@ public class Copetran {
     //REGISTROS DE PERSONAS
     //REGISTROS Y METODOS DE CONDUCTORES
     public String conductorRegistro(String nombre, String cedula, String celular, String correo, String añosExperiencia, int sueldo){
-        String registro = "CONDCUTOR REGISTRADO CON EXITO\n";
+        String registro = "CONDUCTOR REGISTRADO CON EXITO\n\n";
         if(validarCedula(cedula)){
             return "CONDUCTOR YA REGISTRADO";
         }
@@ -172,7 +172,7 @@ public class Copetran {
     }
     //LISTAR CONDUCTORES
     public String conductoresListado(){
-        String lista = "LISTADO DE CONDUCTORES\n";
+        String lista = "LISTADO DE CONDUCTORES\n\n";
         if(listaPersonas.isEmpty()){
             return "NO HAY CONDUCTORES REGISTRADOS";
         }
@@ -193,5 +193,34 @@ public class Copetran {
             }
         }
         return existe;
+    }
+    //REGISTRO DE CLIENTES
+    public String clienteRegistro(String nombre, String cedula, String celular, String correo){
+        String registro = "CLIENTE REGISTRADO CON EXITO\n";
+        if(validarCedula(cedula)){
+            return "CLIENTE YA REGISTRADO";
+        }
+        Cliente clienteNuevo = new Cliente(nombre, cedula, celular, correo);
+        listaPersonas.add(clienteNuevo);
+        registro += clienteNuevo.toString();
+        return registro;
+    }
+    //LISTA PARA JCOMBOBOX DE CLIENTES
+    public ArrayList<String> nombresClientes(){
+        ArrayList<String> nombres = new ArrayList<>();
+        for (Persona p : listaPersonas) {
+            if( p instanceof Cliente){
+                nombres.add(p.getNombre());
+            }
+        }
+        return nombres;
+    }
+    //VENTAS
+    public ArrayList<String> ventasCombo(){
+        ArrayList<String> destinosSalida = new ArrayList<>();
+        for (Salida s : listaSalidas) {
+            destinosSalida.add(s.getMyRuta().getDestino());
+        }
+        return destinosSalida;
     }
 }

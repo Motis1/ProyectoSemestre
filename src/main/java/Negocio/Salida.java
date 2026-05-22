@@ -7,6 +7,7 @@ public class Salida {
     private Bus myBus;
     private String estado;
     private Date fechaHora;
+    private boolean[] asientosOcupados;
     
     public Salida (Ruta rutaAsignada,Bus busAsignado, Date fechaHora){
         this.iD = "S" + contadorSalidas++;
@@ -52,9 +53,9 @@ public class Salida {
     @Override
     public String toString() {
         return "ID: " + iD +
-               "\nRuta: " + myRuta + 
-               "\nBus asignado: " + myBus + 
+               "\nRUTA:\n" + myRuta + 
+               "\nBUS ASIGNADO:\n" + myBus + 
                "\nEstado:" + estado + 
-               "\n Fecha y hora:" + fechaHora;
+               "\nFecha y hora:" + fechaHora;
     }
 }

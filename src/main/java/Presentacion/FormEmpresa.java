@@ -92,6 +92,8 @@ public class FormEmpresa extends javax.swing.JFrame {
 
     private void cmdClienteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cmdClienteActionPerformed
         // TODO add your handling code here:
+        FormCliente myTer = new FormCliente(this.myPrincipal);
+        myTer.setVisible(true);
     }//GEN-LAST:event_cmdClienteActionPerformed
 
     /**

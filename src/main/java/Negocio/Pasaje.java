@@ -1,23 +1,21 @@
 package Negocio;
 public class Pasaje {
-    private Persona myPasasjero;
+    private Persona myPasajero;
     private Salida mySalida;
     private Puesto myPuesto;
     private float valor;
     private String estado;
     
     public Pasaje(Persona myPasajero,Salida mySalida,Puesto myPuesto,float valor ){
-        this.myPasasjero = myPasajero;
+        this.myPasajero = myPasajero;
         this.mySalida = mySalida;
         this.myPuesto = myPuesto;
         this.valor = valor;
-        this.estado = "VIGENTE"; /*todos estan vigentes al principio
-        */
-        
+        this.estado = "VIGENTE"; 
     }
 
     public Persona getMyPasasjero() {
-        return myPasasjero;
+        return myPasajero;
     }
 
     public Salida getMySalida() {
