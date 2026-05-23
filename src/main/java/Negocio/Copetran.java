@@ -1,4 +1,5 @@
 package Negocio;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
 
@@ -126,7 +127,7 @@ public class Copetran {
        
        Salida salidaNueva = new Salida(rutaSalida, busSalida, fechaHora);
        this.listaSalidas.add(salidaNueva);
-       return "RUTA REGISTRADA CON EXITO: \n\n" + salidaNueva.toString();
+       return "SALIDA REGISTRADA CON EXITO: \n\n" + salidaNueva.toString();
     }
     //LISTAR SALIDAS
     public String salidasListado(){
@@ -138,6 +139,27 @@ public class Copetran {
             lista+=s.toString() + "\n--------------------------------\n";
         } 
         return lista;
+    }
+    //JCOMBO DE SALIDAS POR DESTINO
+    public ArrayList<String> salidasFechaDestino(){
+        ArrayList<String> salidas = new ArrayList<>();
+        for (int i = 0; i < listaSalidas.size(); i++) {
+            String combo = listaSalidas.get(i).getMyRuta().getDestino() + " - " + listaSalidas.get(i).getFechaHora();
+            salidas.add(combo);
+        }
+        return salidas;
+    }
+    //BUSCAR ESAS SALIDAS
+    public Salida buscarSalida(String texto){
+        SimpleDateFormat fecha = new SimpleDateFormat("dd/MM/yyy HH:mm");
+        
+        for (Salida s : listaSalidas) {
+            String formato = s.getMyRuta().getDestino() + " - " + fecha.format(s.getFechaHora());
+            if(formato.equalsIgnoreCase(texto)){
+                return s;
+            }
+        }
+        return null;
     }
     
     //REGISTROS DE PERSONAS

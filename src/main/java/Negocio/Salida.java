@@ -1,4 +1,5 @@
 package Negocio;
+import java.text.SimpleDateFormat;
 import java.util.Date;
 public class Salida {
     private int contadorSalidas;
@@ -15,6 +16,23 @@ public class Salida {
         this.myBus = busAsignado;
         this.estado = "PROGRAMADA";
         this.fechaHora = fechaHora;
+        //this.asientosOcupados = new boolean[Puesto];
+    }
+
+    public int getContadorSalidas() {
+        return contadorSalidas;
+    }
+
+    public void setContadorSalidas(int numero) {
+        this.contadorSalidas = contadorSalidas;
+    }
+
+    public boolean[] getAsientosOcupados() {
+        return asientosOcupados;
+    }
+
+    public void setAsientosOcupados(boolean[] asientosOcupados) {
+        this.asientosOcupados = asientosOcupados;
     }
 
     public Ruta getMyRuta() {
@@ -52,10 +70,12 @@ public class Salida {
    
     @Override
     public String toString() {
+        SimpleDateFormat formatoFecha = new SimpleDateFormat("dd/MM/yyy HH:mm");
+        String fechaModificada = formatoFecha.format(fechaHora);
         return "ID: " + iD +
                "\nRUTA:\n" + myRuta + 
                "\nBUS ASIGNADO:\n" + myBus + 
-               "\nEstado:" + estado + 
-               "\nFecha y hora:" + fechaHora;
+               "\nEstado: " + estado + 
+               "\nFecha y hora: " + fechaModificada;
     }
 }

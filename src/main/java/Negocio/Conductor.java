@@ -28,7 +28,7 @@ public class Conductor extends Persona {
     @Override
     public String toString() {
         return "Datos Personales:\n" + super.toString() + 
-               "\n Años de experiencia: " + añosExperiencia + 
+               "\nAños de experiencia: " + añosExperiencia + 
                "\nSueldo: " + sueldo;
     }
 }

@@ -427,7 +427,7 @@ public class FormAdmin extends javax.swing.JFrame {
     private void cmdRegistrarRutaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cmdRegistrarRutaActionPerformed
         // TODO add your handling code here:
         this.txtMostrar.setText("");
-        String destino = this.txtDestino.getText();
+        String destino = this.txtDestino.getText().toUpperCase();
         int tarifa = Integer.parseInt(this.txtTarifa.getText());
         
         String registroRuta = this.myCopetran.registrarRutasCopetran(destino, tarifa);
