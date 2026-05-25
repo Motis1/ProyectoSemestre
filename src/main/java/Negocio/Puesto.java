@@ -1,11 +1,11 @@
 package Negocio;
 public class Puesto {
     private int numeroPuestos; 
-    private boolean ocupado;
+    private String estado;
     
     public Puesto (int numeroPuestos){
         this.numeroPuestos = numeroPuestos;
-        this.ocupado = false;
+        this.estado = "LIBRE";
     }
 
     public int getNumeroPuestos() {
@@ -14,13 +14,13 @@ public class Puesto {
     /*
     El numero de puestos no tiene setter ya que no se van a cambiar la capacidad porque es fija 
     */
-    public boolean isOcupado() {
-        return ocupado;
+
+    public String getEstado() {
+        return estado;
     }
 
-    public void setOcupado(boolean ocupado) {
-        this.ocupado = ocupado;
+    public void setEstado(String estado) {
+        this.estado = estado;
     }
-    
     
 }

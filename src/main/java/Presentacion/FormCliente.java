@@ -227,7 +227,8 @@ public class FormCliente extends javax.swing.JFrame {
 
     private void cmbVentaPasajeActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cmbVentaPasajeActionPerformed
         // TODO add your handling code here:
-        FormVenta myCuar = new FormVenta(this.myCliente);
+        String clienteSeleccionado =  cmdPasajeroSeleccion.getSelectedItem().toString();
+        FormVenta myCuar = new FormVenta(this.myCliente,clienteSeleccionado);
         myCuar.setVisible(true);
     }//GEN-LAST:event_cmbVentaPasajeActionPerformed
 
@@ -263,6 +264,8 @@ public class FormCliente extends javax.swing.JFrame {
     // End of variables declaration//GEN-END:variables
 
     private void cargarClientes(ArrayList<String> nombresClientes) {
+        this.cmdPasajeroSeleccion.removeAllItems();
+        this.cmdPasajeroSeleccion.addItem("Seleccione aqui...");
         for (int i = 0; i < nombresClientes.size(); i++) {
             cmdPasajeroSeleccion.addItem(nombresClientes.get(i));
         }

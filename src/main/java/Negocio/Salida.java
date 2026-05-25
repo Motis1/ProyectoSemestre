@@ -70,13 +70,16 @@ public class Salida {
         return false;
     }
     
+    public String getiD() {
+        return iD;
+    }
     public boolean ocuparAsientos(int numeroAsiento){
         if(asientosOcupados != null && numeroAsiento >= 0 && numeroAsiento < asientosOcupados.length){
             this.asientosOcupados[numeroAsiento] = true;
         }
         return false;
     }
-    
+
     @Override
     public String toString() {
         SimpleDateFormat formatoFecha = new SimpleDateFormat("dd/MM/yyy HH:mm");

@@ -15,11 +15,14 @@ import java.util.ArrayList;
 public class FormVenta extends javax.swing.JFrame {
     private Copetran myVentas;
     private javax.swing.JButton[] botonesAsientos;
+    private String clienteSeleccionado;
     
-    public FormVenta(Copetran fv) {
+    public FormVenta(Copetran fv,String cliente) {
         initComponents();
         this.myVentas = fv;
         cargarSalidas(this.myVentas.salidasFechaDestino());
+        this.clienteSeleccionado = cliente;
+        this.setTitle("CLIENTE: " +  this.clienteSeleccionado.toUpperCase());
     }
 
     /**
@@ -36,31 +39,33 @@ public class FormVenta extends javax.swing.JFrame {
         jLabel4 = new javax.swing.JLabel();
         cmdSalidaSeleccion = new javax.swing.JComboBox<>();
         cmbMostrarPuestos = new javax.swing.JButton();
-        jButton1 = new javax.swing.JButton();
+        cmbSalidaMostrar = new javax.swing.JButton();
         jLabel5 = new javax.swing.JLabel();
         jScrollPane1 = new javax.swing.JScrollPane();
         txtMostrar = new javax.swing.JTextArea();
         jLabel6 = new javax.swing.JLabel();
-        cmdSalidaSeleccion1 = new javax.swing.JComboBox<>();
-        cmbMostrarPuestos1 = new javax.swing.JButton();
+        cmbCancelar = new javax.swing.JButton();
         jButton2 = new javax.swing.JButton();
-        jLabel7 = new javax.swing.JLabel();
-        cmdSalidaSeleccion2 = new javax.swing.JComboBox<>();
-        cmbMostrarPuestos2 = new javax.swing.JButton();
-        jButton3 = new javax.swing.JButton();
+        cmdSalidCancelar = new javax.swing.JComboBox<>();
+        jLabel2 = new javax.swing.JLabel();
+        txtCantidadPasajes = new javax.swing.JTextField();
+        cmbSalidaMostrar1 = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         setTitle("VENTAS");
+
+        panelAsientos.setMinimumSize(new java.awt.Dimension(32767, 32767));
+        panelAsientos.setPreferredSize(new java.awt.Dimension(32767, 32767));
 
         javax.swing.GroupLayout panelAsientosLayout = new javax.swing.GroupLayout(panelAsientos);
         panelAsientos.setLayout(panelAsientosLayout);
         panelAsientosLayout.setHorizontalGroup(
             panelAsientosLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 1287, Short.MAX_VALUE)
+            .addGap(0, 0, Short.MAX_VALUE)
         );
         panelAsientosLayout.setVerticalGroup(
             panelAsientosLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 310, Short.MAX_VALUE)
+            .addGap(0, 0, Short.MAX_VALUE)
         );
 
         jLabel1.setFont(new java.awt.Font("Segoe UI", 1, 48)); // NOI18N
@@ -69,7 +74,7 @@ public class FormVenta extends javax.swing.JFrame {
         jLabel1.setToolTipText("");
 
         jLabel4.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
-        jLabel4.setText("ESCOGER SALIDA :");
+        jLabel4.setText("VENTA:");
 
         cmdSalidaSeleccion.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Seleccione una salida..." }));
 
@@ -77,8 +82,9 @@ public class FormVenta extends javax.swing.JFrame {
         cmbMostrarPuestos.setText("CARGAR PUESTOS");
         cmbMostrarPuestos.addActionListener(this::cmbMostrarPuestosActionPerformed);
 
-        jButton1.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
-        jButton1.setText("MOSTRAR INFO. DE LA SALIDA");
+        cmbSalidaMostrar.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
+        cmbSalidaMostrar.setText("MOSTRAR INFO. DE LA SALIDA");
+        cmbSalidaMostrar.addActionListener(this::cmbSalidaMostrarActionPerformed);
 
         jLabel5.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
         jLabel5.setText("INFORMACION :");
@@ -90,24 +96,20 @@ public class FormVenta extends javax.swing.JFrame {
         jLabel6.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
         jLabel6.setText("CANCELACION :");
 
-        cmdSalidaSeleccion1.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Seleccione una salida..." }));
-
-        cmbMostrarPuestos1.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
-        cmbMostrarPuestos1.setText("CARGAR PUESTOS");
+        cmbCancelar.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
+        cmbCancelar.setText("CANCELAR SALIDA");
 
         jButton2.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
-        jButton2.setText("MOSTRAR INFO. DE LA SALIDA");
+        jButton2.setText("REPROGRAMAR SALIDA");
 
-        jLabel7.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
-        jLabel7.setText("REPROGRAMACION :");
+        cmdSalidCancelar.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Seleccione la salida del cliente..." }));
 
-        cmdSalidaSeleccion2.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Seleccione una salida..." }));
+        jLabel2.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
+        jLabel2.setText("Cantidad:");
 
-        cmbMostrarPuestos2.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
-        cmbMostrarPuestos2.setText("CARGAR PUESTOS");
-
-        jButton3.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
-        jButton3.setText("MOSTRAR INFO. DE LA SALIDA");
+        cmbSalidaMostrar1.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
+        cmbSalidaMostrar1.setText("MOSTRAR INFO. DE LA SALIDA");
+        cmbSalidaMostrar1.addActionListener(this::cmbSalidaMostrar1ActionPerformed);
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -115,34 +117,31 @@ public class FormVenta extends javax.swing.JFrame {
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addGap(60, 60, 60)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jLabel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                     .addGroup(layout.createSequentialGroup()
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                            .addComponent(jLabel4)
+                            .addComponent(cmdSalidaSeleccion, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(cmbMostrarPuestos, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(cmbSalidaMostrar, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(jLabel6)
+                            .addComponent(cmdSalidCancelar, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(cmbCancelar, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(jButton2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                             .addGroup(layout.createSequentialGroup()
-                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                                    .addComponent(jLabel4)
-                                    .addComponent(cmdSalidaSeleccion, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                    .addComponent(cmbMostrarPuestos, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                    .addComponent(jButton1))
-                                .addGap(18, 18, 18)
-                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                                    .addComponent(jLabel6)
-                                    .addComponent(cmdSalidaSeleccion1, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                    .addComponent(cmbMostrarPuestos1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                    .addComponent(jButton2))
-                                .addGap(18, 18, 18)
-                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                                    .addComponent(jLabel7)
-                                    .addComponent(cmdSalidaSeleccion2, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                    .addComponent(cmbMostrarPuestos2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                    .addComponent(jButton3))
-                                .addGap(130, 130, 130)
-                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addComponent(jLabel5)
-                                    .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 419, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                            .addComponent(panelAsientos, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addGap(0, 61, Short.MAX_VALUE)))
+                                .addComponent(jLabel2)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                                .addComponent(txtCantidadPasajes))
+                            .addComponent(cmbSalidaMostrar1, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                        .addGap(18, 18, 18)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(jLabel5)
+                            .addComponent(jScrollPane1)))
+                    .addComponent(panelAsientos, javax.swing.GroupLayout.PREFERRED_SIZE, 1083, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addContainerGap(62, Short.MAX_VALUE))
+            .addGroup(layout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(jLabel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addContainerGap())
         );
         layout.setVerticalGroup(
@@ -151,39 +150,36 @@ public class FormVenta extends javax.swing.JFrame {
                 .addContainerGap()
                 .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 69, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18)
-                .addComponent(panelAsientos, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(panelAsientos, javax.swing.GroupLayout.PREFERRED_SIZE, 314, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(layout.createSequentialGroup()
+                        .addComponent(jLabel5)
+                        .addGap(12, 12, 12)
+                        .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 340, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addGroup(layout.createSequentialGroup()
                         .addComponent(jLabel4)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                         .addComponent(cmdSalidaSeleccion, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(jLabel2)
+                            .addComponent(txtCantidadPasajes, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                         .addComponent(cmbMostrarPuestos)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(cmbSalidaMostrar)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(cmbSalidaMostrar1)
+                        .addGap(18, 18, 18)
+                        .addComponent(jLabel6)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addComponent(jButton1))
-                    .addGroup(layout.createSequentialGroup()
-                        .addComponent(jLabel5)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 207, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                        .addGroup(layout.createSequentialGroup()
-                            .addComponent(jLabel7)
-                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                            .addComponent(cmdSalidaSeleccion2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                            .addComponent(cmbMostrarPuestos2)
-                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                            .addComponent(jButton3))
-                        .addGroup(layout.createSequentialGroup()
-                            .addComponent(jLabel6)
-                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                            .addComponent(cmdSalidaSeleccion1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                            .addComponent(cmbMostrarPuestos1)
-                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                            .addComponent(jButton2))))
-                .addContainerGap(41, Short.MAX_VALUE))
+                        .addComponent(cmdSalidCancelar, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(10, 10, 10)
+                        .addComponent(cmbCancelar)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(jButton2)))
+                .addGap(32, 41, Short.MAX_VALUE))
         );
 
         pack();
@@ -202,28 +198,35 @@ public class FormVenta extends javax.swing.JFrame {
         
     }//GEN-LAST:event_cmbMostrarPuestosActionPerformed
 
+    private void cmbSalidaMostrarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cmbSalidaMostrarActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_cmbSalidaMostrarActionPerformed
+
+    private void cmbSalidaMostrar1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cmbSalidaMostrar1ActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_cmbSalidaMostrar1ActionPerformed
+
     /**
      * @param args the command line arguments
      */
     
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton cmbCancelar;
     private javax.swing.JButton cmbMostrarPuestos;
-    private javax.swing.JButton cmbMostrarPuestos1;
-    private javax.swing.JButton cmbMostrarPuestos2;
+    private javax.swing.JButton cmbSalidaMostrar;
+    private javax.swing.JButton cmbSalidaMostrar1;
+    private javax.swing.JComboBox<String> cmdSalidCancelar;
     private javax.swing.JComboBox<String> cmdSalidaSeleccion;
-    private javax.swing.JComboBox<String> cmdSalidaSeleccion1;
-    private javax.swing.JComboBox<String> cmdSalidaSeleccion2;
-    private javax.swing.JButton jButton1;
     private javax.swing.JButton jButton2;
-    private javax.swing.JButton jButton3;
     private javax.swing.JLabel jLabel1;
+    private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel4;
     private javax.swing.JLabel jLabel5;
     private javax.swing.JLabel jLabel6;
-    private javax.swing.JLabel jLabel7;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JPanel panelAsientos;
+    private javax.swing.JTextField txtCantidadPasajes;
     private javax.swing.JTextArea txtMostrar;
     // End of variables declaration//GEN-END:variables
 

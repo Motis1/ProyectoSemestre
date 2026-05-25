@@ -15,7 +15,7 @@ public class Bus {
         this.crearEspacio();
         this.crearPuesto();
     }
-    
+    //SE CREAN LOS PUESTOS DE CADA BUS
     private void crearEspacio(){
         if(tipoServicio.equalsIgnoreCase("NORMAL")){
             capacidad = 30;
@@ -24,13 +24,14 @@ public class Bus {
         }
         this.crearPuesto();
     }
+    //CREAR LOS ESPACIOS DE LOS PUESTOS
     private void crearPuesto(){
         this.myPuestos = new Puesto[capacidad];
         for(int i=0;i<capacidad;i++){
             this.myPuestos[i] = new Puesto(i+1);
         }
     }
-
+    
     public Conductor getConductor() {
         return conductor;
     }
@@ -66,8 +67,8 @@ public class Bus {
     public int getCapacidad() {
         return capacidad;
     }
-
-     //PROFESORA: NO SE OBSERVA METODOS PARA MANIPULAR LAS PARTES... ES TODO PARTE FISICO
+    
+    
 
     @Override
     public String toString() {

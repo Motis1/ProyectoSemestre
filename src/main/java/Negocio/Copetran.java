@@ -121,13 +121,27 @@ public class Copetran {
     }
     
     //SALIDAS
-    public String registrarSalidasCopetran(String destino,String placa,Date fechaHora ){
+    public String registrarSalidasCopetran(String destino,String placa,Date fechaHora){
        Bus busSalida = buscarBus(placa);
        Ruta rutaSalida = buscarRuta(destino);
+       
+       if(validarSalida(placa, fechaHora)){
+           return "SALIDA YA PROGRAMADA";
+       }
        
        Salida salidaNueva = new Salida(rutaSalida, busSalida, fechaHora);
        this.listaSalidas.add(salidaNueva);
        return "SALIDA REGISTRADA CON EXITO: \n\n" + salidaNueva.toString();
+    }
+    // VALIDAR SALIDAS
+    private boolean validarSalida(String placa,Date fechaHora){
+        boolean existe = false;
+        for (Salida s : listaSalidas) {
+            if(s.getMyBus().getPlacaUnica().equalsIgnoreCase(placa)&&s.getFechaHora().equals(fechaHora)){
+                existe = true;
+                break;
+            }
+        }return existe;
     }
     //LISTAR SALIDAS
     public String salidasListado(){
@@ -255,11 +269,5 @@ public class Copetran {
         return nombres;
     }
     //VENTAS
-    public ArrayList<String> ventasCombo(){
-        ArrayList<String> destinosSalida = new ArrayList<>();
-        for (Salida s : listaSalidas) {
-            destinosSalida.add(s.getMyRuta().getDestino());
-        }
-        return destinosSalida;
-    }
+    
 }

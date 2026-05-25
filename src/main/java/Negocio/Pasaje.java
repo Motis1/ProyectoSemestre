@@ -5,13 +5,15 @@ public class Pasaje {
     private Puesto myPuesto;
     private float valor;
     private String estado;
+    private int cantidad;
     
-    public Pasaje(Persona myPasajero,Salida mySalida,Puesto myPuesto,float valor ){
+    public Pasaje(Persona myPasajero,Salida mySalida,Puesto myPuesto,float valor, int cantidad ){
         this.myPasajero = myPasajero;
         this.mySalida = mySalida;
         this.myPuesto = myPuesto;
         this.valor = valor;
         this.estado = "VIGENTE"; 
+        this.cantidad = cantidad;
     }
 
     public Persona getMyPasasjero() {
