@@ -143,14 +143,15 @@ public class Copetran {
     //JCOMBO DE SALIDAS POR DESTINO
     public ArrayList<String> salidasFechaDestino(){
         ArrayList<String> salidas = new ArrayList<>();
+        SimpleDateFormat fecha = new SimpleDateFormat("dd/MM/yyy HH:mm");
         for (int i = 0; i < listaSalidas.size(); i++) {
-            String combo = listaSalidas.get(i).getMyRuta().getDestino() + " - " + listaSalidas.get(i).getFechaHora();
+            String combo = listaSalidas.get(i).getMyRuta().getDestino() + " - " + fecha.format(listaSalidas.get(i).getFechaHora());
             salidas.add(combo);
         }
         return salidas;
     }
     //BUSCAR ESAS SALIDAS
-    public Salida buscarSalida(String texto){
+    private Salida buscarSalida(String texto){
         SimpleDateFormat fecha = new SimpleDateFormat("dd/MM/yyy HH:mm");
         
         for (Salida s : listaSalidas) {
@@ -160,6 +161,22 @@ public class Copetran {
             }
         }
         return null;
+    }
+    //BUSCAR CAPACIDAD DE CADA SALIDA
+    public int obtenerCapacidad(String datosSalida){
+        Salida s = this.buscarSalida(datosSalida);
+        if(s!=null){
+            return s.getMyBus().getCapacidad();
+        }
+        return 0;
+    }
+    //CONSULTAR ESTADO
+    public boolean verificarEstado(String datosSalida, int numeroPuesto){
+        Salida s = this.buscarSalida(datosSalida);
+        if(s!=null){
+            return s.ocuparAsientos(numeroPuesto);
+        }
+        return false;
     }
     
     //REGISTROS DE PERSONAS

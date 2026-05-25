@@ -4,7 +4,9 @@
  */
 package Presentacion;
 import Negocio.Copetran;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+
 
 /**
  *
@@ -12,6 +14,7 @@ import java.util.ArrayList;
  */
 public class FormVenta extends javax.swing.JFrame {
     private Copetran myVentas;
+    private javax.swing.JButton[] botonesAsientos;
     
     public FormVenta(Copetran fv) {
         initComponents();
@@ -41,6 +44,10 @@ public class FormVenta extends javax.swing.JFrame {
         cmdSalidaSeleccion1 = new javax.swing.JComboBox<>();
         cmbMostrarPuestos1 = new javax.swing.JButton();
         jButton2 = new javax.swing.JButton();
+        jLabel7 = new javax.swing.JLabel();
+        cmdSalidaSeleccion2 = new javax.swing.JComboBox<>();
+        cmbMostrarPuestos2 = new javax.swing.JButton();
+        jButton3 = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         setTitle("VENTAS");
@@ -49,11 +56,11 @@ public class FormVenta extends javax.swing.JFrame {
         panelAsientos.setLayout(panelAsientosLayout);
         panelAsientosLayout.setHorizontalGroup(
             panelAsientosLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 1371, Short.MAX_VALUE)
+            .addGap(0, 1287, Short.MAX_VALUE)
         );
         panelAsientosLayout.setVerticalGroup(
             panelAsientosLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 335, Short.MAX_VALUE)
+            .addGap(0, 310, Short.MAX_VALUE)
         );
 
         jLabel1.setFont(new java.awt.Font("Segoe UI", 1, 48)); // NOI18N
@@ -91,17 +98,26 @@ public class FormVenta extends javax.swing.JFrame {
         jButton2.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
         jButton2.setText("MOSTRAR INFO. DE LA SALIDA");
 
+        jLabel7.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
+        jLabel7.setText("REPROGRAMACION :");
+
+        cmdSalidaSeleccion2.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Seleccione una salida..." }));
+
+        cmbMostrarPuestos2.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
+        cmbMostrarPuestos2.setText("CARGAR PUESTOS");
+
+        jButton3.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
+        jButton3.setText("MOSTRAR INFO. DE LA SALIDA");
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
+                .addGap(60, 60, 60)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jLabel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addGroup(layout.createSequentialGroup()
-                        .addContainerGap()
-                        .addComponent(jLabel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                    .addGroup(layout.createSequentialGroup()
-                        .addGap(18, 18, 18)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                             .addGroup(layout.createSequentialGroup()
                                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
@@ -115,12 +131,18 @@ public class FormVenta extends javax.swing.JFrame {
                                     .addComponent(cmdSalidaSeleccion1, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                                     .addComponent(cmbMostrarPuestos1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                                     .addComponent(jButton2))
-                                .addGap(466, 466, 466)
+                                .addGap(18, 18, 18)
+                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                                    .addComponent(jLabel7)
+                                    .addComponent(cmdSalidaSeleccion2, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                    .addComponent(cmbMostrarPuestos2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                    .addComponent(jButton3))
+                                .addGap(130, 130, 130)
                                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                                     .addComponent(jLabel5)
                                     .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 419, javax.swing.GroupLayout.PREFERRED_SIZE)))
                             .addComponent(panelAsientos, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addGap(0, 19, Short.MAX_VALUE)))
+                        .addGap(0, 61, Short.MAX_VALUE)))
                 .addContainerGap())
         );
         layout.setVerticalGroup(
@@ -128,32 +150,40 @@ public class FormVenta extends javax.swing.JFrame {
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
                 .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 69, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(12, 12, 12)
-                .addComponent(panelAsientos, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addGap(18, 18, 18)
+                .addComponent(panelAsientos, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(jLabel4)
-                            .addComponent(jLabel5))
+                        .addComponent(jLabel4)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addGroup(layout.createSequentialGroup()
-                                .addComponent(cmdSalidaSeleccion, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                                .addComponent(cmbMostrarPuestos)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                                .addComponent(jButton1))
-                            .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 207, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addComponent(cmdSalidaSeleccion, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addComponent(cmbMostrarPuestos)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addComponent(jButton1))
                     .addGroup(layout.createSequentialGroup()
-                        .addComponent(jLabel6)
+                        .addComponent(jLabel5)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addComponent(cmdSalidaSeleccion1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addComponent(cmbMostrarPuestos1)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addComponent(jButton2)))
-                .addGap(22, 22, 22))
+                        .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 207, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                        .addGroup(layout.createSequentialGroup()
+                            .addComponent(jLabel7)
+                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                            .addComponent(cmdSalidaSeleccion2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                            .addComponent(cmbMostrarPuestos2)
+                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                            .addComponent(jButton3))
+                        .addGroup(layout.createSequentialGroup()
+                            .addComponent(jLabel6)
+                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                            .addComponent(cmdSalidaSeleccion1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                            .addComponent(cmbMostrarPuestos1)
+                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                            .addComponent(jButton2))))
+                .addContainerGap(41, Short.MAX_VALUE))
         );
 
         pack();
@@ -166,6 +196,9 @@ public class FormVenta extends javax.swing.JFrame {
             this.txtMostrar.setText("DEBE INGRESAR UNA SALIDA");
         }
         
+        String texto = this.cmdSalidaSeleccion.getSelectedItem().toString();
+        int capacidadBus = this.myVentas.obtenerCapacidad(texto);
+        dibujarMapaAsientos(texto,capacidadBus);
         
     }//GEN-LAST:event_cmbMostrarPuestosActionPerformed
 
@@ -177,22 +210,97 @@ public class FormVenta extends javax.swing.JFrame {
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton cmbMostrarPuestos;
     private javax.swing.JButton cmbMostrarPuestos1;
+    private javax.swing.JButton cmbMostrarPuestos2;
     private javax.swing.JComboBox<String> cmdSalidaSeleccion;
     private javax.swing.JComboBox<String> cmdSalidaSeleccion1;
+    private javax.swing.JComboBox<String> cmdSalidaSeleccion2;
     private javax.swing.JButton jButton1;
     private javax.swing.JButton jButton2;
+    private javax.swing.JButton jButton3;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel4;
     private javax.swing.JLabel jLabel5;
     private javax.swing.JLabel jLabel6;
+    private javax.swing.JLabel jLabel7;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JPanel panelAsientos;
     private javax.swing.JTextArea txtMostrar;
     // End of variables declaration//GEN-END:variables
 
     private void cargarSalidas(ArrayList<String> salidasFechaDestino) {
+        this.cmdSalidaSeleccion.removeAllItems();
+        this.cmdSalidaSeleccion.addItem("Seleccione aqui...");
+        
+        SimpleDateFormat fecha = new SimpleDateFormat("dd/MM/yyyy HH:mm");
+        
         for (int i = 0; i < salidasFechaDestino.size(); i++) {
             cmdSalidaSeleccion.addItem(salidasFechaDestino.get(i));
         }
     }
+    
+    private void dibujarMapaAsientos(String textoCombo, int capacidadBus){
+        panelAsientos.removeAll();
+        botonesAsientos = new javax.swing.JButton[capacidadBus+1];
+        int columnas = (int) Math.ceil((double)capacidadBus/4);
+        panelAsientos.setLayout(new java.awt.GridLayout(5, columnas, 10, 10));
+        panelAsientos.setPreferredSize(new java.awt.Dimension(780, 200));
+        panelAsientos.setSize(new java.awt.Dimension(780, 200));
+        int[][] matrizAsientos = new int[5][columnas];
+        int contadorAsientos = 1;
+        
+        for (int c = 0; c < columnas; c++) {
+            for (int f = 0; f < 5; f++) {
+                if(f == 2){
+                    matrizAsientos[f][c] = -2;
+                }else if(contadorAsientos <= capacidadBus){
+                    matrizAsientos[f][c] = contadorAsientos;
+                    contadorAsientos++;
+                }else{
+                    matrizAsientos[f][c]= -1;
+                }
+            }
+        }
+        
+        for (int f = 0; f < 5; f++) {
+            for (int c = 0; c < columnas; c++) {
+                int numeroAsiento = matrizAsientos[f][c];
+                if(numeroAsiento == -2){
+                    javax.swing.JLabel pasillo= new javax.swing.JLabel("");
+                    panelAsientos.add(pasillo);
+                    continue;
+                }
+                if(numeroAsiento == -1){
+                    javax.swing.JLabel espacioVacio = new javax.swing.JLabel("");
+                    panelAsientos.add(espacioVacio);
+                    continue;
+                }
+                botonesAsientos[numeroAsiento]=new javax.swing.JButton(String.valueOf(numeroAsiento));
+                
+                if(this.myVentas.verificarEstado(textoCombo, numeroAsiento)){
+                    botonesAsientos[numeroAsiento].setBackground(java.awt.Color.RED);
+                    botonesAsientos[numeroAsiento].setForeground(java.awt.Color.WHITE);
+                    botonesAsientos[numeroAsiento].setEnabled(true);
+                }else{
+                    botonesAsientos[numeroAsiento].setBackground(java.awt.Color.GREEN);
+                    botonesAsientos[numeroAsiento].setForeground(java.awt.Color.BLACK);
+                    
+                    final int asientoActual = numeroAsiento;
+                    botonesAsientos[numeroAsiento].addActionListener(new java.awt.event.ActionListener() {
+                    @Override
+                    public void actionPerformed(java.awt.event.ActionEvent e) {
+                        if(botonesAsientos[asientoActual].getBackground() == java.awt.Color.GREEN){
+                            botonesAsientos[asientoActual].setBackground(java.awt.Color.BLUE);
+                            botonesAsientos[asientoActual].setForeground(java.awt.Color.WHITE);
+                        }else if(botonesAsientos[asientoActual].getBackground() == java.awt.Color.BLUE){
+                            botonesAsientos[asientoActual].setBackground(java.awt.Color.GREEN);
+                            botonesAsientos[asientoActual].setForeground(java.awt.Color.BLACK);
+                        }
+                    }
+                 });
+                }panelAsientos.add(botonesAsientos[numeroAsiento]);
+            } 
+        }
+        panelAsientos.revalidate();
+        panelAsientos.repaint();
+    } 
 }

@@ -21,7 +21,6 @@ public class FormCliente extends javax.swing.JFrame {
     public FormCliente(Copetran fc) {
         initComponents();
         this.myCliente = fc;
-        cargarRutas(this.myCliente.destinoRutas());
         cargarClientes(this.myCliente.nombresClientes());
         limpiarCliente();
     }
@@ -54,7 +53,6 @@ public class FormCliente extends javax.swing.JFrame {
         txtMostrar1 = new javax.swing.JTextArea();
         jLabel4 = new javax.swing.JLabel();
         cmdPasajeroSeleccion = new javax.swing.JComboBox<>();
-        cmdRutaSeleccion = new javax.swing.JComboBox<>();
         cmbVentaPasaje = new javax.swing.JButton();
         jLabel6 = new javax.swing.JLabel();
         cmdPasajeroReporte = new javax.swing.JComboBox<>();
@@ -105,8 +103,6 @@ public class FormCliente extends javax.swing.JFrame {
 
         cmdPasajeroSeleccion.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Seleccione un pasajero..." }));
 
-        cmdRutaSeleccion.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Seleccione una ruta..." }));
-
         cmbVentaPasaje.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
         cmbVentaPasaje.setText("IR A VENTA DE PASAJES");
         cmbVentaPasaje.addActionListener(this::cmbVentaPasajeActionPerformed);
@@ -152,7 +148,6 @@ public class FormCliente extends javax.swing.JFrame {
                                 .addComponent(txtGmailCliente, javax.swing.GroupLayout.PREFERRED_SIZE, 180, javax.swing.GroupLayout.PREFERRED_SIZE)))
                         .addComponent(jLabel4)
                         .addComponent(cmdPasajeroSeleccion, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(cmdRutaSeleccion, javax.swing.GroupLayout.Alignment.TRAILING, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                         .addComponent(cmbVentaPasaje, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                         .addComponent(cmdPasajeroReporte, javax.swing.GroupLayout.Alignment.TRAILING, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                         .addComponent(cmbReporteVentas, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
@@ -194,11 +189,9 @@ public class FormCliente extends javax.swing.JFrame {
                         .addComponent(jLabel4)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(cmdPasajeroSeleccion, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(cmdRutaSeleccion, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                         .addComponent(cmbVentaPasaje)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addGap(18, 18, 18)
                         .addComponent(jLabel6)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(cmdPasajeroReporte, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -249,7 +242,6 @@ public class FormCliente extends javax.swing.JFrame {
     private javax.swing.JComboBox<String> cmdPasajeroReporte;
     private javax.swing.JComboBox<String> cmdPasajeroSeleccion;
     private javax.swing.JButton cmdRegistrarCliente;
-    private javax.swing.JComboBox<String> cmdRutaSeleccion;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel11;
     private javax.swing.JLabel jLabel17;
@@ -269,12 +261,6 @@ public class FormCliente extends javax.swing.JFrame {
     private javax.swing.JTextArea txtMostrar1;
     private javax.swing.JTextField txtNombreCliente;
     // End of variables declaration//GEN-END:variables
-
-    private void cargarRutas(ArrayList<String> destinoRutas) {
-        for (int i = 0; i < destinoRutas.size(); i++) {
-            cmdRutaSeleccion.addItem(destinoRutas.get(i));
-        }
-    }
 
     private void cargarClientes(ArrayList<String> nombresClientes) {
         for (int i = 0; i < nombresClientes.size(); i++) {

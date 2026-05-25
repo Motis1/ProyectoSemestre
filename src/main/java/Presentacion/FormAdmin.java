@@ -551,18 +551,24 @@ public class FormAdmin extends javax.swing.JFrame {
     // End of variables declaration//GEN-END:variables
 
     private void cargarBuses(ArrayList<String> placaBuses) {
+        this.cmbElegirBus.removeAllItems();
+        this.cmbElegirBus.addItem("Seleccione aqui...");
         for (int i = 0; i < placaBuses.size(); i++) {
             cmbElegirBus.addItem(placaBuses.get(i));
         }
     }
     
     private void cargarRutas(ArrayList<String> destinoRutas) {
+        this.cmbElegirRuta.removeAllItems();
+        this.cmbElegirRuta.addItem("Seleccione aqui...");
         for (int i = 0; i < destinoRutas.size(); i++) {
             cmbElegirRuta.addItem(destinoRutas.get(i));
         }
     }
 
     private void cargarConductores(ArrayList<String> nombresConductores) {
+        this.cmbConductorElegir.removeAllItems();
+        this.cmbConductorElegir.addItem("Seleccione aqui...");
         for (int i = 0; i < nombresConductores.size(); i++) {
             cmbConductorElegir.addItem(nombresConductores.get(i));
         }
@@ -579,5 +585,6 @@ public class FormAdmin extends javax.swing.JFrame {
     
     private void limpiarRuta(){
         this.txtDestino.setText("");
+        this.txtTarifa.setText("");
     }
 }

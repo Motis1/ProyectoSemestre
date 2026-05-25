@@ -85,7 +85,6 @@
                       </Group>
                       <Component id="jLabel4" min="-2" max="-2" attributes="0"/>
                       <Component id="cmdPasajeroSeleccion" alignment="0" max="32767" attributes="0"/>
-                      <Component id="cmdRutaSeleccion" alignment="1" max="32767" attributes="0"/>
                       <Component id="cmbVentaPasaje" max="32767" attributes="0"/>
                       <Component id="cmdPasajeroReporte" alignment="1" max="32767" attributes="0"/>
                       <Component id="cmbReporteVentas" alignment="1" max="32767" attributes="0"/>
@@ -136,11 +135,9 @@
                       <Component id="jLabel4" min="-2" max="-2" attributes="0"/>
                       <EmptySpace max="-2" attributes="0"/>
                       <Component id="cmdPasajeroSeleccion" min="-2" max="-2" attributes="0"/>
-                      <EmptySpace max="-2" attributes="0"/>
-                      <Component id="cmdRutaSeleccion" min="-2" max="-2" attributes="0"/>
                       <EmptySpace type="unrelated" max="-2" attributes="0"/>
                       <Component id="cmbVentaPasaje" min="-2" max="-2" attributes="0"/>
-                      <EmptySpace type="unrelated" max="-2" attributes="0"/>
+                      <EmptySpace type="separate" max="-2" attributes="0"/>
                       <Component id="jLabel6" min="-2" max="-2" attributes="0"/>
                       <EmptySpace max="-2" attributes="0"/>
                       <Component id="cmdPasajeroReporte" min="-2" max="-2" attributes="0"/>
@@ -264,18 +261,6 @@
         <Property name="model" type="javax.swing.ComboBoxModel" editor="org.netbeans.modules.form.editors2.ComboBoxModelEditor">
           <StringArray count="1">
             <StringItem index="0" value="Seleccione un pasajero..."/>
-          </StringArray>
-        </Property>
-      </Properties>
-      <AuxValues>
-        <AuxValue name="JavaCodeGenerator_TypeParameters" type="java.lang.String" value="&lt;String&gt;"/>
-      </AuxValues>
-    </Component>
-    <Component class="javax.swing.JComboBox" name="cmdRutaSeleccion">
-      <Properties>
-        <Property name="model" type="javax.swing.ComboBoxModel" editor="org.netbeans.modules.form.editors2.ComboBoxModelEditor">
-          <StringArray count="1">
-            <StringItem index="0" value="Seleccione una ruta..."/>
           </StringArray>
         </Property>
       </Properties>

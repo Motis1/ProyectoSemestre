@@ -1,6 +1,6 @@
 package Negocio;
 public class Ruta {
-    private int contadorRutas;
+    private static int contadorRutas = 1;
     private String codigo;
     private String origen;
     private String destino;
