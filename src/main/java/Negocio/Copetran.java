@@ -2,6 +2,7 @@ package Negocio;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
+import java.util.TreeSet;
 
 
 public class Copetran {
@@ -9,7 +10,7 @@ public class Copetran {
     private ArrayList<Ruta> listaRutas;
     private ArrayList<Salida> listaSalidas;
     private ArrayList<Pasaje> listaPasajes;
-    private ArrayList<Persona> listaPersonas;
+    private TreeSet<Persona> listaPersonas;
     private Caja cajaCopetran;
     
     
@@ -18,7 +19,7 @@ public class Copetran {
         this.listaRutas = new ArrayList<>();
         this.listaSalidas = new ArrayList<>();
         this.listaPasajes = new ArrayList<>();
-        this.listaPersonas = new ArrayList<>();
+        this.listaPersonas = new TreeSet<>();
     }
     
     //BUSES
@@ -197,9 +198,6 @@ public class Copetran {
     //REGISTROS Y METODOS DE CONDUCTORES
     public String conductorRegistro(String nombre, String cedula, String celular, String correo, String añosExperiencia, int sueldo){
         String registro = "CONDUCTOR REGISTRADO CON EXITO\n\n";
-        if(validarCedula(cedula)){
-            return "CONDUCTOR YA REGISTRADO";
-        }
         Conductor conductorNuevo = new Conductor(añosExperiencia, nombre, cedula, celular, correo, sueldo);
         listaPersonas.add(conductorNuevo);
         registro += conductorNuevo.toString();
@@ -210,6 +208,7 @@ public class Copetran {
         ArrayList<String> nombres = new ArrayList<>();
         for (Persona p : listaPersonas) {
             if( p instanceof Conductor){
+                Conductor c = (Conductor) p;
                 nombres.add(p.getNombre());
             }
         }
@@ -236,23 +235,9 @@ public class Copetran {
         } 
         return lista;
     }
-    //VALIDACION DE CEDULAS CLIENTE Y CONDUCTOR 
-    private boolean validarCedula(String cedula){
-        boolean existe = false;
-        for (Persona p : listaPersonas) {
-            if(p.getCedula().equalsIgnoreCase(cedula)){
-                existe = true;
-                break;
-            }
-        }
-        return existe;
-    }
     //REGISTRO DE CLIENTES
     public String clienteRegistro(String nombre, String cedula, String celular, String correo){
         String registro = "CLIENTE REGISTRADO CON EXITO\n";
-        if(validarCedula(cedula)){
-            return "CLIENTE YA REGISTRADO";
-        }
         Cliente clienteNuevo = new Cliente(nombre, cedula, celular, correo);
         listaPersonas.add(clienteNuevo);
         registro += clienteNuevo.toString();
@@ -263,11 +248,15 @@ public class Copetran {
         ArrayList<String> nombres = new ArrayList<>();
         for (Persona p : listaPersonas) {
             if( p instanceof Cliente){
+                Cliente c = (Cliente) p;
                 nombres.add(p.getNombre());
             }
         }
         return nombres;
     }
     //VENTAS
+    public String ventaPasaje(){
+        return null;
+    }
     
 }

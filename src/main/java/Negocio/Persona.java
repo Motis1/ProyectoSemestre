@@ -1,9 +1,9 @@
 package Negocio;
-public class Persona {
-    private String nombre;
-    private String cedula;
-    private String celular;
-    private String correo;
+public class Persona implements Comparable<Persona>{
+    protected String nombre;
+    protected String cedula;
+    protected String celular;
+    protected String correo;
 
     public Persona(String nombre, String cedula, String celular, String correo) {
         this.nombre = nombre;
@@ -44,6 +44,11 @@ public class Persona {
         this.correo = correo;
     }
 
+    @Override
+    public int compareTo(Persona o) {
+        return this.cedula.compareTo(o.getCedula());
+    }
+    
     @Override
     public String toString() {
         return "Nombre: " + nombre + 

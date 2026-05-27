@@ -443,7 +443,6 @@ public class FormAdmin extends javax.swing.JFrame {
     private void cmdRegistrarSalidaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cmdRegistrarSalidaActionPerformed
         // TODO add your handling code here:
         this.txtMostrar.setText("");
-        SimpleDateFormat formatoFecha = new SimpleDateFormat("dd/MM/yyyy");
         String ruta = this.cmbElegirRuta.getSelectedItem().toString();
         String bus = this.cmbElegirBus.getSelectedItem().toString();
         java.util.Date fechaHora = (Date) jsFechaHora.getValue();
