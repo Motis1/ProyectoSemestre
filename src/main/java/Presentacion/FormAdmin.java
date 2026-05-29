@@ -429,8 +429,9 @@ public class FormAdmin extends javax.swing.JFrame {
         this.txtMostrar.setText("");
         String destino = this.txtDestino.getText().toUpperCase();
         int tarifa = Integer.parseInt(this.txtTarifa.getText());
+        int tiempo = Integer.parseInt(this.txtTiempoDeViaje.getText().toString());
         
-        String registroRuta = this.myCopetran.registrarRutasCopetran(destino, tarifa);
+        String registroRuta = this.myCopetran.registrarRutasCopetran(destino, tarifa,tiempo);
         this.txtMostrar.setText(registroRuta);
         
         if(registroRuta.contains("RUTA REGISTRADA CON EXITO")){

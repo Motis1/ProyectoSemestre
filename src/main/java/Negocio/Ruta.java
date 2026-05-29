@@ -5,12 +5,22 @@ public class Ruta {
     private String origen;
     private String destino;
     private int tarifaBase;
+    private int tiempoDeViaje;
     
-    public Ruta (String destino, int tarifa){
+    public Ruta (String destino, int tarifa, int tiempoDeViaje){
         this.codigo = "C" + contadorRutas++;
         this.origen = "CUCUTA";
         this.destino = destino;
         this.tarifaBase = tarifa;
+        this.tiempoDeViaje = tiempoDeViaje;
+    }
+
+    public int getTiempoDeViaje() {
+        return tiempoDeViaje;
+    }
+
+    public void setTiempoDeViaje(int tiempoDeViaje) {
+        this.tiempoDeViaje = tiempoDeViaje;
     }
 
     public String getCodigo() {
@@ -50,6 +60,7 @@ public class Ruta {
         return "Codigo: " + codigo + 
                "\nOrigen: " + origen + 
                "\nDestino: " + destino + 
-               "\nTarifa base: " + tarifaBase;
+               "\nTarifa base: " + tarifaBase +
+               "\nTiempo de viaje: " + tiempoDeViaje;
     }
 }

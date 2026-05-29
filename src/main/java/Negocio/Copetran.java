@@ -20,8 +20,84 @@ public class Copetran {
         this.listaSalidas = new ArrayList<>();
         this.listaPasajes = new ArrayList<>();
         this.listaPersonas = new TreeSet<>();
+        personasCargadosPorCodigo();
+        rutasCargadasPorCodigo();
+        busesCargadasPorCodigo();
+        salidasCargadasPorCodigo();
     }
-    
+    //DATOS PRECARGADOS POR CODIGO DE PRUEBA PARA PROBAR RF
+    private void personasCargadosPorCodigo(){
+        Conductor cond1 = new Conductor("2", "Marlon Correa", "1095612365", "3126458995", "Marlon@gmail.com", 2500000);
+        Conductor cond2 = new Conductor("4", "Jose Angarita", "1026459123", "3126458952", "Jose@gmail.com", 2500000);
+        Conductor cond3 = new Conductor("3", "Daniel Arias", "1045856231", "3165987426", "Daniel@gmail.com", 2500000);
+        Conductor cond4 = new Conductor("5", "Brayan Bayona", "102654895", "3174652978", "Brayan@gmail.com", 2500000);
+        this.listaPersonas.add(cond1);
+        this.listaPersonas.add(cond2);
+        this.listaPersonas.add(cond3);
+        this.listaPersonas.add(cond4);
+    }
+    private void rutasCargadasPorCodigo(){
+        Ruta r1 = new Ruta("BUCARAMANGA",80000,4);
+        Ruta r2 = new Ruta("BOGOTA",160000,18);
+        Ruta r3 = new Ruta("MEDELLIN",180000,15);
+        Ruta r4 = new Ruta("CARTAGENA",220000,16);
+        this.listaRutas.add(r1);
+        this.listaRutas.add(r2);
+        this.listaRutas.add(r3);
+        this.listaRutas.add(r4);
+    }
+    private void busesCargadasPorCodigo(){
+        Conductor marlon = buscarConductor("Marlon Correa");
+        Conductor jose = buscarConductor("Jose Angarita");
+        Conductor daniel = buscarConductor("Daniel Arias");
+        Conductor brayan = buscarConductor("Brayan Bayona");
+        Bus b1 = new Bus("KAA-101", "NORMAL", marlon);
+        Bus b2 = new Bus("KBB-202", "EJECUTIVO", jose);
+        Bus b3 = new Bus("KCC-303", "NORMAL", daniel);
+        Bus b4 = new Bus("KDD-404", "EJECUTIVO", brayan);
+        Bus b5 = new Bus("KEE-505", "NORMAL", marlon);
+        Bus b6 = new Bus("KFF-606", "NORMAL", jose);
+        this.listaBuses.add(b1);
+        this.listaBuses.add(b2);
+        this.listaBuses.add(b3);
+        this.listaBuses.add(b4);
+        this.listaBuses.add(b5);
+        this.listaBuses.add(b6);
+    }
+    private void salidasCargadasPorCodigo(){
+        Bus b1 = buscarBus("KAA-101");
+        Bus b2 = buscarBus("KBB-202");
+        Bus b3 = buscarBus("KCC-303");
+        Bus b4 = buscarBus("KAA-101");
+        Bus b6 = buscarBus("KEE-505");
+        Ruta r1 = buscarRuta("BUCARAMANGA");
+        Ruta r2 = buscarRuta("BOGOTA");
+        Ruta r3 = buscarRuta("MEDELLIN");
+        Ruta r4 = buscarRuta("CARTAGENA");
+        Date f1 = crearFechaPrueba(2026, 3, 15, 6, 0);
+        Date f2 = crearFechaPrueba(2026, 3, 15, 14, 0);
+        Date f3 = crearFechaPrueba(2026, 3, 16, 7, 0);
+        Date f4 = crearFechaPrueba(2026, 3, 16, 20, 0);
+        Date f5 = crearFechaPrueba(2026, 3, 17, 5, 30);
+        Date f6 = crearFechaPrueba(2026, 3, 17, 18, 0);
+        Date f7 = crearFechaPrueba(2026, 3, 18, 6, 30);
+        Date f8 = crearFechaPrueba(2026, 3, 18, 19, 30);
+        listaSalidas.add(new Salida(r1,b1,f1));
+        listaSalidas.add(new Salida(r1,b2,f2));
+        listaSalidas.add(new Salida(r2,b3,f3));
+        listaSalidas.add(new Salida(r2,b4,f4));
+        listaSalidas.add(new Salida(r3,b6,f5));
+        listaSalidas.add(new Salida(r3,b1,f6));
+        listaSalidas.add(new Salida(r4,b3,f7));
+        listaSalidas.add(new Salida(r4,b2,f8));
+    }
+    private Date crearFechaPrueba(int año, int mes, int dia, int hora, int minuto) {
+        java.util.Calendar formato = java.util.Calendar.getInstance();
+        formato.set(año, mes - 1, dia, hora, minuto, 0);
+        return formato.getTime();
+    }
+
+    //REGISTROS
     //BUSES
     public String registrarBusesCopetran(String placaUnica,String tipoServicio, String nombreConductor){
         if(validarPlaca(placaUnica)){
@@ -73,11 +149,11 @@ public class Copetran {
     
     // RUTAS
     // REGISTRO DE LAS RUTAS
-    public String registrarRutasCopetran(String destino, int tarifa ){
+    public String registrarRutasCopetran(String destino, int tarifa,int tiempoDeViaje ){
         if(this.validarRuta(destino)){
             return "RUTA YA EXISTENTE";
         }
-        Ruta nueva = new Ruta(destino, tarifa);
+        Ruta nueva = new Ruta(destino, tarifa,tiempoDeViaje);
         this.listaRutas.add(nueva);
         return "RUTA REGISTRADA CON EXITO\n\n"+ nueva.toString();
     }

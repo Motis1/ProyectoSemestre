@@ -85,8 +85,10 @@ public class Salida {
         SimpleDateFormat formatoFecha = new SimpleDateFormat("dd/MM/yyy HH:mm");
         String fechaModificada = formatoFecha.format(fechaHora);
         return "ID: " + iD +
-               "\nRUTA:\n" + myRuta + 
-               "\nBUS ASIGNADO:\n" + myBus + 
+               "\nDESTINO:\n" + myRuta.getDestino() + 
+               "\nBUS ASIGNADO:" + myBus.getPlacaUnica() + 
+               "\nCONDUCTOR: " + myBus.getConductor() + 
+               "\nCLASE: " + myBus.getTipoServicio()+
                "\nEstado: " + estado + 
                "\nFecha y hora: " + fechaModificada;
     }
