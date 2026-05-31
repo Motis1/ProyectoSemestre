@@ -62,10 +62,20 @@ public class Salida {
     public void setFechaHora(Date fechaHora) {
         this.fechaHora = fechaHora;
     }
-    
+   
+    private Puesto obtenerPuestoPorNumero(int numeroPuesto){
+        if(numeroPuesto <= this.myBus.getCapacidad()){
+            return this.myBus.getMyPuestos()[numeroPuesto-1];
+        }
+        return null;
+    }
+   
     public boolean asientoOcupado(int numeroAsiento){
-        if(asientosOcupados != null && numeroAsiento >= 0 && numeroAsiento < asientosOcupados.length){
-            return asientosOcupados[numeroAsiento];
+        if(numeroAsiento < asientosOcupados.length){
+            asientosOcupados[numeroAsiento] = true;
+            Puesto puestoFisico = obtenerPuestoPorNumero(numeroAsiento);
+            puestoFisico.setEstado("OCUPADO");
+            return true;
         }
         return false;
     }
@@ -73,12 +83,37 @@ public class Salida {
     public String getiD() {
         return iD;
     }
-    public boolean ocuparAsientos(int numeroAsiento){
-        if(asientosOcupados != null && numeroAsiento >= 0 && numeroAsiento < asientosOcupados.length){
-            this.asientosOcupados[numeroAsiento] = true;
+    public boolean puestosVecinos(int puesto1, int puesto2) {
+        int filaPuesto1 = (puesto1 - 1) / 4;
+        int filaPuesto2 = (puesto2 - 1) / 4;
+        if (filaPuesto1 != filaPuesto2) {
+            return false;
+        }
+        int posicion1 = (puesto1 - 1) % 4;
+        int posicion2 = (puesto2 - 1) % 4;
+        if ((posicion1 == 0 && posicion2 == 1) || (posicion1 == 1 && posicion2 == 0)) {
+            return true;
+        }
+        if ((posicion1 == 2 && posicion2 == 3) || (posicion1 == 3 && posicion2 == 2)) {
+        return true;
         }
         return false;
     }
+    /*public boolean busHorario(Date fecha, int horasDuracion){
+        if(this.estado.equalsIgnoreCase("FINALIZADO")||this.estado.equalsIgnoreCase("CANCELADO")){
+            return false;
+        }
+         java.util.Calendar fechaNueva = java.util.Calendar.getInstance();
+         fechaNueva.setTime(fecha);
+         Date fechaFinNueva = fechaNueva.getTime();
+         
+         java.util.Calendar fechaActual = java.util.Calendar.getInstance();
+         fechaActual.setTime(this.fechaHora);
+         fechaActual.add(java.util.Calendar.HOUR_OF_DAY, this.myRuta.getTiempoDeViaje());
+         Date fechaFinActual = fechaActual.getTime();
+         
+         return this.fechaHora.before(fechaFinNueva) && fechaFinActual.after(fecha);
+    }*/
 
     @Override
     public String toString() {
@@ -87,7 +122,7 @@ public class Salida {
         return "ID: " + iD +
                "\nDESTINO:\n" + myRuta.getDestino() + 
                "\nBUS ASIGNADO:" + myBus.getPlacaUnica() + 
-               "\nCONDUCTOR: " + myBus.getConductor() + 
+               "\nCONDUCTOR: " + myBus.getConductor().getNombre() + 
                "\nCLASE: " + myBus.getTipoServicio()+
                "\nEstado: " + estado + 
                "\nFecha y hora: " + fechaModificada;

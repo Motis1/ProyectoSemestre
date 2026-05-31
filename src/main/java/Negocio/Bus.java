@@ -68,7 +68,13 @@ public class Bus {
         return capacidad;
     }
     
-    
+    public Puesto[] getMyPuestos() {
+        return myPuestos;
+    }
+
+    public void setMyPuestos(Puesto[] myPuestos) {
+        this.myPuestos = myPuestos;
+    }
 
     @Override
     public String toString() {

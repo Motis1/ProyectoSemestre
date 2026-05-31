@@ -277,5 +277,7 @@ public class FormVenta extends javax.swing.JFrame {
         }
         panelAsientos.revalidate();
         panelAsientos.repaint();
-    } 
+    }
+    
+    
 }

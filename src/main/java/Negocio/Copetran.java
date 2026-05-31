@@ -265,7 +265,7 @@ public class Copetran {
     public boolean verificarEstado(String datosSalida, int numeroPuesto){
         Salida s = this.buscarSalida(datosSalida);
         if(s!=null){
-            return s.ocuparAsientos(numeroPuesto);
+            return s.asientoOcupado(numeroPuesto);
         }
         return false;
     }
@@ -295,6 +295,14 @@ public class Copetran {
         for (Persona p : listaPersonas) {
             if(p instanceof Conductor && p.getNombre().equalsIgnoreCase(nombre) )
                 return (Conductor) p;
+        }
+        return null;
+    }
+    // BUSCAR CLIENTES
+    public Cliente buscarCliente(String nombre){
+        for (Persona p : listaPersonas) {
+            if(p instanceof Cliente && p.getNombre().equalsIgnoreCase(nombre) )
+                return (Cliente) p;
         }
         return null;
     }
@@ -331,8 +339,84 @@ public class Copetran {
         return nombres;
     }
     //VENTAS
-    public String ventaPasaje(){
-        return null;
+    public String ventaPasajeIndividual(String nombre, String textoSalida, int numeroAsiento1, int numeroAsiento2){
+        Persona pasajero = buscarCliente(nombre);
+        Salida salidaSeleccionada = buscarSalida(textoSalida);
+        
+        if(numeroAsiento2 > 0){
+            if(!salidaSeleccionada.puestosVecinos(numeroAsiento1, numeroAsiento2)){
+                return "LOS PUESTOS DEBEN SER VECINOS AL COMPRAR DOS ASIENTOS";
+            }
+            if(!this.verificarEstado(textoSalida, numeroAsiento1)||!this.verificarEstado(textoSalida, numeroAsiento2)){
+                return "UNO O AMBOS PUESTOS YA OCUPADOS";
+            }
+            Puesto p1 = salidaSeleccionada.getMyBus().getMyPuestos()[numeroAsiento1];
+            Puesto p2 = salidaSeleccionada.getMyBus().getMyPuestos()[numeroAsiento2];
+            
+            Pasaje pasaje1 = new Pasaje(pasajero, salidaSeleccionada, p1, salidaSeleccionada.getMyRuta().getTarifaBase());
+            Pasaje pasaje2 = new Pasaje(pasajero, salidaSeleccionada, p2, salidaSeleccionada.getMyRuta().getTarifaBase());
+            float valor = salidaSeleccionada.getMyRuta().getTarifaBase() *2;
+            this.listaPasajes.add(pasaje1);
+            this.listaPasajes.add(pasaje2);
+            this.cajaCopetran.setTotalVendido(cajaCopetran.getTotalVendido() + valor);
+            
+            return "VENTA EXITOSA\n\n" + pasaje1 + "\n\n" + pasaje2;
+        }
+        else{
+            if(!this.verificarEstado(textoSalida, numeroAsiento1)){
+                return "PUESTO OCUPADO";
+            }
+            Puesto seleccionado = salidaSeleccionada.getMyBus().getMyPuestos()[numeroAsiento1];
+            Pasaje nuevo = new Pasaje(pasajero, salidaSeleccionada, seleccionado, salidaSeleccionada.getMyRuta().getTarifaBase());
+            this.listaPasajes.add(nuevo);
+            
+            return "VENTA EXITOSA\n\n" + nuevo;
+        }
+    }
+    
+    //VENTA IDA Y VUELTA
+    public String idaYvuelta(String nombre, String textoSalida, int numeroAsiento){
+        Persona pasajero = buscarCliente(nombre);
+        Salida salidaSeleccionada = buscarSalida(textoSalida);
+        
+        float descuento = (salidaSeleccionada.getMyRuta().getTarifaBase() * 2) * 0.9F;
+        
+        if(!this.verificarEstado(textoSalida, numeroAsiento)){
+            return "PUESTO YA OCUPADO";
+        }
+        
+        Puesto seleccionado = salidaSeleccionada.getMyBus().getMyPuestos()[numeroAsiento];
+        Pasaje nuevo = new Pasaje(pasajero, salidaSeleccionada, seleccionado, descuento);
+        listaPasajes.add(nuevo);
+        
+        return "VENTA EXITOSA\n\n" + nuevo;
+    }
+    
+    // HORA DE LA PC
+    
+    public void actualizarEstadoRealSalidas(){
+        Date horaPc = new Date();
+        for (Salida s : listaSalidas) {
+            if(s.getEstado().equals("CANCELADA")){
+                continue;
+            }
+            Date horaDeViaje = s.getFechaHora();
+            
+            java.util.Calendar llegada = java.util.Calendar.getInstance();
+            llegada.setTime(horaDeViaje);
+            llegada.add(java.util.Calendar.HOUR_OF_DAY, s.getMyRuta().getTiempoDeViaje());
+            Date horaAproxLlegada = llegada.getTime();
+            
+            if(horaPc.before(horaDeViaje)){
+                s.setEstado("PROGRAMADA");
+            }
+            else if(horaPc.after(horaDeViaje) && llegada.before(horaAproxLlegada)){
+                s.setEstado("EN_VIAJE");
+            }
+            else{
+                s.setEstado("FNALIZADO");
+            }
+        }
     }
     
 }
