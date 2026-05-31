@@ -16,6 +16,9 @@ public class FormVenta extends javax.swing.JFrame {
     private Copetran myVentas;
     private javax.swing.JButton[] botonesAsientos;
     private String clienteSeleccionado;
+    private int asientoSeleccionado1 = 0;
+    private int asientoSeleccionado2 = 0;
+    private int cantidadAsientosHundidos = 0;
     
     public FormVenta(Copetran fv,String cliente) {
         initComponents();
@@ -39,14 +42,11 @@ public class FormVenta extends javax.swing.JFrame {
         jLabel4 = new javax.swing.JLabel();
         cmdSalidaSeleccion = new javax.swing.JComboBox<>();
         cmbMostrarPuestos = new javax.swing.JButton();
-        cmbSalidaMostrar = new javax.swing.JButton();
+        cmbRealizarCompra = new javax.swing.JButton();
         jLabel5 = new javax.swing.JLabel();
         jScrollPane1 = new javax.swing.JScrollPane();
         txtMostrar = new javax.swing.JTextArea();
-        jLabel6 = new javax.swing.JLabel();
-        cmbCancelar = new javax.swing.JButton();
-        jButton2 = new javax.swing.JButton();
-        cmdSalidCancelar = new javax.swing.JComboBox<>();
+        cmbIdaYVuelta = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         setTitle("VENTAS");
@@ -79,9 +79,9 @@ public class FormVenta extends javax.swing.JFrame {
         cmbMostrarPuestos.setText("CARGAR PUESTOS");
         cmbMostrarPuestos.addActionListener(this::cmbMostrarPuestosActionPerformed);
 
-        cmbSalidaMostrar.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
-        cmbSalidaMostrar.setText("MOSTRAR INFO. DE LA SALIDA");
-        cmbSalidaMostrar.addActionListener(this::cmbSalidaMostrarActionPerformed);
+        cmbRealizarCompra.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
+        cmbRealizarCompra.setText("REALIZAR COMPRA");
+        cmbRealizarCompra.addActionListener(this::cmbRealizarCompraActionPerformed);
 
         jLabel5.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
         jLabel5.setText("INFORMACION :");
@@ -90,16 +90,9 @@ public class FormVenta extends javax.swing.JFrame {
         txtMostrar.setRows(5);
         jScrollPane1.setViewportView(txtMostrar);
 
-        jLabel6.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
-        jLabel6.setText("CANCELACION :");
-
-        cmbCancelar.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
-        cmbCancelar.setText("CANCELAR SALIDA");
-
-        jButton2.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
-        jButton2.setText("REPROGRAMAR SALIDA");
-
-        cmdSalidCancelar.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Seleccione la salida del cliente..." }));
+        cmbIdaYVuelta.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
+        cmbIdaYVuelta.setText("COMPRAR IDA Y VUELTA");
+        cmbIdaYVuelta.addActionListener(this::cmbIdaYVueltaActionPerformed);
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -113,11 +106,8 @@ public class FormVenta extends javax.swing.JFrame {
                             .addComponent(jLabel4)
                             .addComponent(cmdSalidaSeleccion, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                             .addComponent(cmbMostrarPuestos, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                            .addComponent(cmbSalidaMostrar, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                            .addComponent(jLabel6)
-                            .addComponent(cmdSalidCancelar, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                            .addComponent(cmbCancelar, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                            .addComponent(jButton2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                            .addComponent(cmbRealizarCompra, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(cmbIdaYVuelta, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 201, Short.MAX_VALUE))
                         .addGap(18, 18, 18)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(jLabel5)
@@ -149,15 +139,10 @@ public class FormVenta extends javax.swing.JFrame {
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                         .addComponent(cmbMostrarPuestos)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(cmbSalidaMostrar)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addComponent(jLabel6)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addComponent(cmdSalidCancelar, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(10, 10, 10)
-                        .addComponent(cmbCancelar)
+                        .addComponent(cmbRealizarCompra)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jButton2)))
+                        .addComponent(cmbIdaYVuelta)
+                        .addGap(70, 70, 70)))
                 .addGap(32, 41, Short.MAX_VALUE))
         );
 
@@ -177,9 +162,46 @@ public class FormVenta extends javax.swing.JFrame {
         
     }//GEN-LAST:event_cmbMostrarPuestosActionPerformed
 
-    private void cmbSalidaMostrarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cmbSalidaMostrarActionPerformed
+    private void cmbRealizarCompraActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cmbRealizarCompraActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_cmbSalidaMostrarActionPerformed
+        if(cantidadAsientosHundidos == 0){
+            this.txtMostrar.setText("DEBE SELECCIONAR ALMENOS UN ASIENTO EN EL PANEL");
+        }
+         String textoSalida = cmdSalidaSeleccion.getSelectedItem().toString();
+         Negocio.Salida salidaActual = this.myVentas.buscarSalida(textoSalida);
+         
+         String resultado = this.myVentas.ventaPasajeIndividual(this.clienteSeleccionado, textoSalida, asientoSeleccionado1, asientoSeleccionado2);
+         this.txtMostrar.setText(resultado);
+         
+         if(resultado.contains("VENTA EXITOSA")){
+             this.asientoSeleccionado1 = 0;
+             this.asientoSeleccionado2 = 0;
+             this.cantidadAsientosHundidos = 0;
+             
+             int capacidadBusNueva = this.myVentas.obtenerCapacidad(textoSalida);
+             dibujarMapaAsientos(textoSalida, capacidadBusNueva);
+         }
+    }//GEN-LAST:event_cmbRealizarCompraActionPerformed
+
+    private void cmbIdaYVueltaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cmbIdaYVueltaActionPerformed
+        // TODO add your handling code here:
+        if(cantidadAsientosHundidos != 1){
+            txtMostrar.setText("DEBE SELECCIONAR EXACTAMENTE UN SOLO ASIENTO");
+        }
+        String textoSalida = cmdSalidaSeleccion.getSelectedItem().toString();
+        
+        String resultado = this.myVentas.idaYvuelta(this.clienteSeleccionado, textoSalida, asientoSeleccionado1);
+        txtMostrar.setText(resultado);
+        
+        if(resultado.contains("VENTA EXITOSA")){
+            this.asientoSeleccionado1 = 0;
+             this.asientoSeleccionado2 = 0;
+             this.cantidadAsientosHundidos = 0;
+             
+             int capacidadBusNueva = this.myVentas.obtenerCapacidad(textoSalida);
+             dibujarMapaAsientos(textoSalida, capacidadBusNueva);
+        }
+    }//GEN-LAST:event_cmbIdaYVueltaActionPerformed
 
     /**
      * @param args the command line arguments
@@ -187,16 +209,13 @@ public class FormVenta extends javax.swing.JFrame {
     
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JButton cmbCancelar;
+    private javax.swing.JButton cmbIdaYVuelta;
     private javax.swing.JButton cmbMostrarPuestos;
-    private javax.swing.JButton cmbSalidaMostrar;
-    private javax.swing.JComboBox<String> cmdSalidCancelar;
+    private javax.swing.JButton cmbRealizarCompra;
     private javax.swing.JComboBox<String> cmdSalidaSeleccion;
-    private javax.swing.JButton jButton2;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel4;
     private javax.swing.JLabel jLabel5;
-    private javax.swing.JLabel jLabel6;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JPanel panelAsientos;
     private javax.swing.JTextArea txtMostrar;
@@ -264,9 +283,34 @@ public class FormVenta extends javax.swing.JFrame {
                     @Override
                     public void actionPerformed(java.awt.event.ActionEvent e) {
                         if(botonesAsientos[asientoActual].getBackground() == java.awt.Color.GREEN){
-                            botonesAsientos[asientoActual].setBackground(java.awt.Color.BLUE);
-                            botonesAsientos[asientoActual].setForeground(java.awt.Color.WHITE);
+                            if(cantidadAsientosHundidos == 0){
+                                asientoSeleccionado1 = asientoActual;
+                                cantidadAsientosHundidos = 1;
+                                botonesAsientos[asientoActual].setBackground(java.awt.Color.BLUE);
+                                botonesAsientos[asientoActual].setForeground(java.awt.Color.WHITE);
+                            } else if(cantidadAsientosHundidos == 1){
+                                Negocio.Salida salidaSeleccionada = myVentas.buscarSalida(textoCombo);
+                                if(salidaSeleccionada.puestosVecinos(asientoSeleccionado1, asientoActual)){
+                                    asientoSeleccionado2 = asientoActual;
+                                    cantidadAsientosHundidos = 2;
+                                    botonesAsientos[asientoActual].setBackground(java.awt.Color.BLUE);
+                                    botonesAsientos[asientoActual].setForeground(java.awt.Color.WHITE);
+                                }else{
+                                txtMostrar.setText("EL SEGUNDO ASIENTO DEBE ESTAR JUNTO AL PRIMERO");
+                                }
+                            }else{
+                                txtMostrar.setText("MAXIMO DOS ASIENTOS POR PERSONA");
+                            }
+                            
                         }else if(botonesAsientos[asientoActual].getBackground() == java.awt.Color.BLUE){
+                            if(asientoActual == asientoSeleccionado1){
+                                asientoSeleccionado1 = asientoSeleccionado2;
+                                asientoSeleccionado2 = 0;
+                            }else if(asientoActual == asientoSeleccionado2){
+                                asientoSeleccionado2 = 0;
+                            }
+                            cantidadAsientosHundidos--;
+                                    
                             botonesAsientos[asientoActual].setBackground(java.awt.Color.GREEN);
                             botonesAsientos[asientoActual].setForeground(java.awt.Color.BLACK);
                         }

@@ -20,6 +20,7 @@ public class Copetran {
         this.listaSalidas = new ArrayList<>();
         this.listaPasajes = new ArrayList<>();
         this.listaPersonas = new TreeSet<>();
+        this.cajaCopetran = new Caja();
         personasCargadosPorCodigo();
         rutasCargadasPorCodigo();
         busesCargadasPorCodigo();
@@ -31,10 +32,20 @@ public class Copetran {
         Conductor cond2 = new Conductor("4", "Jose Angarita", "1026459123", "3126458952", "Jose@gmail.com", 2500000);
         Conductor cond3 = new Conductor("3", "Daniel Arias", "1045856231", "3165987426", "Daniel@gmail.com", 2500000);
         Conductor cond4 = new Conductor("5", "Brayan Bayona", "102654895", "3174652978", "Brayan@gmail.com", 2500000);
+        Cliente cli1 = new Cliente("Jesus Ochoa", "1095040316", "3165482945", "Jesus@gmail.com");
+        Cliente cli2 = new Cliente("Manuel Marciales", "1004352648", "3125487956", "Manuel@gmail.com");
+        Cliente cli3 = new Cliente("Franco Reales", "105487952", "3254987612", "Franco@gmail.com");
+        Cliente cli4 = new Cliente("Valerie Chaustre", "154879563", "3284597865", "Valerie@gmail.com");
+        Cliente cli5 = new Cliente("Diana Vargas", "100026485", "3023156487", "Diana@gmail.com");
         this.listaPersonas.add(cond1);
         this.listaPersonas.add(cond2);
         this.listaPersonas.add(cond3);
         this.listaPersonas.add(cond4);
+        this.listaPersonas.add(cli1);
+        this.listaPersonas.add(cli2);
+        this.listaPersonas.add(cli3);
+        this.listaPersonas.add(cli4);
+        this.listaPersonas.add(cli5);
     }
     private void rutasCargadasPorCodigo(){
         Ruta r1 = new Ruta("BUCARAMANGA",80000,4);
@@ -242,7 +253,7 @@ public class Copetran {
         return salidas;
     }
     //BUSCAR ESAS SALIDAS
-    private Salida buscarSalida(String texto){
+    public Salida buscarSalida(String texto){
         SimpleDateFormat fecha = new SimpleDateFormat("dd/MM/yyy HH:mm");
         
         for (Salida s : listaSalidas) {
@@ -265,7 +276,7 @@ public class Copetran {
     public boolean verificarEstado(String datosSalida, int numeroPuesto){
         Salida s = this.buscarSalida(datosSalida);
         if(s!=null){
-            return s.asientoOcupado(numeroPuesto);
+            return s.getAsientosOcupados()[numeroPuesto];
         }
         return false;
     }
@@ -347,29 +358,32 @@ public class Copetran {
             if(!salidaSeleccionada.puestosVecinos(numeroAsiento1, numeroAsiento2)){
                 return "LOS PUESTOS DEBEN SER VECINOS AL COMPRAR DOS ASIENTOS";
             }
-            if(!this.verificarEstado(textoSalida, numeroAsiento1)||!this.verificarEstado(textoSalida, numeroAsiento2)){
-                return "UNO O AMBOS PUESTOS YA OCUPADOS";
+            if(salidaSeleccionada.getAsientosOcupados()[numeroAsiento1]||salidaSeleccionada.getAsientosOcupados()[numeroAsiento2]){
+                return "PUESTO/S OCUPADOS";
             }
+            
             Puesto p1 = salidaSeleccionada.getMyBus().getMyPuestos()[numeroAsiento1];
             Puesto p2 = salidaSeleccionada.getMyBus().getMyPuestos()[numeroAsiento2];
-            
             Pasaje pasaje1 = new Pasaje(pasajero, salidaSeleccionada, p1, salidaSeleccionada.getMyRuta().getTarifaBase());
             Pasaje pasaje2 = new Pasaje(pasajero, salidaSeleccionada, p2, salidaSeleccionada.getMyRuta().getTarifaBase());
             float valor = salidaSeleccionada.getMyRuta().getTarifaBase() *2;
             this.listaPasajes.add(pasaje1);
             this.listaPasajes.add(pasaje2);
+            salidaSeleccionada.getAsientosOcupados()[numeroAsiento1] = true;
+            salidaSeleccionada.getAsientosOcupados()[numeroAsiento2] = true;
+            
             this.cajaCopetran.setTotalVendido(cajaCopetran.getTotalVendido() + valor);
             
             return "VENTA EXITOSA\n\n" + pasaje1 + "\n\n" + pasaje2;
         }
         else{
-            if(!this.verificarEstado(textoSalida, numeroAsiento1)){
+            if(salidaSeleccionada.getAsientosOcupados()[numeroAsiento1]){
                 return "PUESTO OCUPADO";
             }
             Puesto seleccionado = salidaSeleccionada.getMyBus().getMyPuestos()[numeroAsiento1];
             Pasaje nuevo = new Pasaje(pasajero, salidaSeleccionada, seleccionado, salidaSeleccionada.getMyRuta().getTarifaBase());
             this.listaPasajes.add(nuevo);
-            
+            salidaSeleccionada.getAsientosOcupados()[numeroAsiento1] = true;
             return "VENTA EXITOSA\n\n" + nuevo;
         }
     }
@@ -380,11 +394,7 @@ public class Copetran {
         Salida salidaSeleccionada = buscarSalida(textoSalida);
         
         float descuento = (salidaSeleccionada.getMyRuta().getTarifaBase() * 2) * 0.9F;
-        
-        if(!this.verificarEstado(textoSalida, numeroAsiento)){
-            return "PUESTO YA OCUPADO";
-        }
-        
+        salidaSeleccionada.getAsientosOcupados()[numeroAsiento] = true;
         Puesto seleccionado = salidaSeleccionada.getMyBus().getMyPuestos()[numeroAsiento];
         Pasaje nuevo = new Pasaje(pasajero, salidaSeleccionada, seleccionado, descuento);
         listaPasajes.add(nuevo);

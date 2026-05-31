@@ -1,4 +1,7 @@
 package Negocio;
+
+import java.text.SimpleDateFormat;
+
 public class Pasaje {
     private int contador = 1;
     private String iD;
@@ -68,9 +71,11 @@ public class Pasaje {
 
     @Override
     public String toString() {
+        SimpleDateFormat formatoFecha = new SimpleDateFormat("dd/MM/yyy HH:mm");
+        String fechaModificada = formatoFecha.format(this.mySalida.getFechaHora());
         return "Tiquete: " + iD + 
                "\nPasajero: " + myPasajero.getCedula() + " - " + myPasajero.getNombre() + 
-               "\nSalida: " + mySalida.getiD() + "(" + mySalida.getMyRuta().getOrigen() + " - " + mySalida.getMyRuta().getDestino() + ") " + mySalida.getFechaHora() +
+               "\nSalida: " + mySalida.getiD() + "(" + mySalida.getMyRuta().getOrigen() + " - " + mySalida.getMyRuta().getDestino() + ") " + fechaModificada +
                "\nBus: " + mySalida.getMyBus().getPlacaUnica() + "(" +mySalida.getMyBus().getTipoServicio() + ") Capacidad: " + mySalida.getMyBus().getCapacidad() + 
                "\nSilla: " + myPuesto + 
                "\nValor: " + valor + 
