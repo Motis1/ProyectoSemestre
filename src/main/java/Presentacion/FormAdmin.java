@@ -189,7 +189,8 @@ public class FormAdmin extends javax.swing.JFrame {
         jLabel24.setText("INFORMACION");
 
         cmdCambiarEstado.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
-        cmdCambiarEstado.setText("CAMBIAR ESTADO");
+        cmdCambiarEstado.setText("CAMBIAR ESTADO - ACTUAL");
+        cmdCambiarEstado.addActionListener(this::cmdCambiarEstadoActionPerformed);
 
         jLabel26.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
         jLabel26.setText("Tiempo viaje:");
@@ -454,6 +455,12 @@ public class FormAdmin extends javax.swing.JFrame {
         
         String reporte = this.myCopetran.registrarSalidasCopetran(ruta, bus, fechaHora);
         this.txtMostrar.setText(reporte);
+        
+        if(reporte.contains("SALIDA REGISTRADA CON EXITO")){
+            this.cargarBuses(this.myCopetran.placaBuses());
+            this.cargarConductores(this.myCopetran.nombresConductores());
+            this.limpiarConductor();
+        }
     }//GEN-LAST:event_cmdRegistrarSalidaActionPerformed
 
     private void cmdRegistrarConductorActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cmdRegistrarConductorActionPerformed
@@ -493,8 +500,14 @@ public class FormAdmin extends javax.swing.JFrame {
         if(this.cmbListas.getSelectedItem().equals("Seleccione aqui...")){
             txtMostrar.setText("DEBE SELECCIONAR ALGUNA DE LAS 4 OPCIONES");
         }
-        
     }//GEN-LAST:event_cmdListarActionPerformed
+
+    private void cmdCambiarEstadoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cmdCambiarEstadoActionPerformed
+        // TODO add your handling code here:
+        this.myCopetran.actualizarEstadoRealSalidas();
+        this.txtMostrar.setText("");
+        this.txtMostrar.setText("=====CONTROL DE SALIDAS EN TIEMPO ACTUAL=====\n\n" + this.myCopetran.listarSalidasEstado());
+    }//GEN-LAST:event_cmdCambiarEstadoActionPerformed
 
     /**
      * @param args the command line arguments
@@ -554,7 +567,10 @@ public class FormAdmin extends javax.swing.JFrame {
         this.cmbElegirBus.removeAllItems();
         this.cmbElegirBus.addItem("Seleccione aqui...");
         for (int i = 0; i < placaBuses.size(); i++) {
-            cmbElegirBus.addItem(placaBuses.get(i));
+            String placa = placaBuses.get(i);
+            if(this.myCopetran.busEstadoDisponible(placa)){
+                cmbElegirBus.addItem(placa);
+            }
         }
     }
     
@@ -570,7 +586,10 @@ public class FormAdmin extends javax.swing.JFrame {
         this.cmbConductorElegir.removeAllItems();
         this.cmbConductorElegir.addItem("Seleccione aqui...");
         for (int i = 0; i < nombresConductores.size(); i++) {
-            cmbConductorElegir.addItem(nombresConductores.get(i));
+            String nombre = nombresConductores.get(i);
+            if(this.myCopetran.conductorDisponible(nombre)){
+                cmbConductorElegir.addItem(nombre);
+            }
         }
     }
     

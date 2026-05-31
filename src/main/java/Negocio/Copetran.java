@@ -280,6 +280,15 @@ public class Copetran {
         }
         return false;
     }
+    //LISTAR SALIDAS POR ESTADOS
+    public ArrayList<String> listarSalidasEstado(){
+        ArrayList<String> salidas = new ArrayList<>();
+        for (int i = 0; i < listaSalidas.size(); i++) {
+            String reporte = "\nID: " + listaSalidas.get(i).getiD() + " - DESTINO: " + listaSalidas.get(i).getMyRuta().getDestino() + " - ESTADO: " + listaSalidas.get(i).getEstado();
+            salidas.add(reporte);
+        }
+        return salidas;
+    }
     
     //REGISTROS DE PERSONAS
     //REGISTROS Y METODOS DE CONDUCTORES
@@ -349,7 +358,7 @@ public class Copetran {
         }
         return nombres;
     }
-    //VENTAS
+    //RF: VENTAS
     public String ventaPasajeIndividual(String nombre, String textoSalida, int numeroAsiento1, int numeroAsiento2){
         Persona pasajero = buscarCliente(nombre);
         Salida salidaSeleccionada = buscarSalida(textoSalida);
@@ -388,7 +397,7 @@ public class Copetran {
         }
     }
     
-    //VENTA IDA Y VUELTA
+    //RF: VENTA IDA Y VUELTA
     public String idaYvuelta(String nombre, String textoSalida, int numeroAsiento){
         Persona pasajero = buscarCliente(nombre);
         Salida salidaSeleccionada = buscarSalida(textoSalida);
@@ -402,6 +411,7 @@ public class Copetran {
         return "VENTA EXITOSA\n\n" + nuevo;
     }
     
+    // TIEMPOS
     // HORA DE LA PC
     
     public void actualizarEstadoRealSalidas(){
@@ -417,16 +427,69 @@ public class Copetran {
             llegada.add(java.util.Calendar.HOUR_OF_DAY, s.getMyRuta().getTiempoDeViaje());
             Date horaAproxLlegada = llegada.getTime();
             
-            if(horaPc.before(horaDeViaje)){
+            long tiempoActual = horaPc.getTime();
+            long tiempoSalida = horaDeViaje.getTime();
+            long tiempoLlegada = horaAproxLlegada.getTime();
+            
+            if(tiempoActual < tiempoSalida){
                 s.setEstado("PROGRAMADA");
             }
-            else if(horaPc.after(horaDeViaje) && llegada.before(horaAproxLlegada)){
+            else if(tiempoActual >= tiempoSalida && tiempoActual <= tiempoLlegada){
                 s.setEstado("EN_VIAJE");
             }
-            else{
-                s.setEstado("FNALIZADO");
+            else {
+                s.setEstado("FINALIZADO");
             }
         }
+    }
+    //EVALUAR SI UN BUS ESTA DISPONIBLE SEGUN EL DICTAMEN DE LOS 3 DIAS 
+    public boolean busEstadoDisponible(String placa){
+        Date horaActual = new Date();
+        
+        for (Salida s : listaSalidas) {
+            if(s.getEstado().equals("CANCELADA")){
+                continue;
+            }
+            if(s.getMyBus().getPlacaUnica().equals(placa)){
+                if(s.getEstado().equals("EN_VIAJE")){
+                    return false;
+                }
+                if(s.getEstado().equals("PROGRAMADA")){
+                    return false;
+                }
+                long tiempoActual = horaActual.getTime();
+                long tiempoSalida = s.getFechaHora().getTime();
+                long diferenciaHoras = (tiempoActual - tiempoSalida)/(1000*60*60);
+                
+                if(diferenciaHoras >= 0 && diferenciaHoras < 24){
+                    return false;
+                }
+            }
+        }return true;
+    }
+    //EVALUAR SI UN CODNCUTOR ESTA DISPONIBLE 
+    public boolean conductorDisponible(String nombre){
+        Date horaPc = new Date();
+        for (Salida s : listaSalidas) {
+            if(s.getEstado().equals("CANCELADA")){
+                continue;
+            }
+            if(s.getMyBus().getConductor().getNombre().equals(nombre)){
+                if(s.getEstado().equals("EN_VIAJE")){
+                    return false;
+                }
+                if(s.getEstado().equals("PROGRAMADA")){
+                    return false;
+                }
+                long tiempoActual = horaPc.getTime();
+                long tiempoSalida = s.getFechaHora().getTime();
+                long diferenciaHoras = (tiempoActual - tiempoSalida)/(1000*60*60);
+                
+                if(diferenciaHoras >= 0 && diferenciaHoras < 24){
+                    return false;
+                }
+            }
+        } return true;
     }
     
 }
