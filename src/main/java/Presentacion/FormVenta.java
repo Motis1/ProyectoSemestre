@@ -319,6 +319,7 @@ public class FormVenta extends javax.swing.JFrame {
                     botonesAsientos[numeroAsiento].addActionListener(new java.awt.event.ActionListener() {
                     @Override
                     public void actionPerformed(java.awt.event.ActionEvent e) {
+                        if(botonesAsientos[asientoActual]!= null){
                         if(botonesAsientos[asientoActual].getBackground() == java.awt.Color.GREEN){
                             if(cantidadAsientosHundidos == 0){
                                 asientoSeleccionado1 = asientoActual;
@@ -338,7 +339,7 @@ public class FormVenta extends javax.swing.JFrame {
                             }else{
                                 txtMostrar.setText("MAXIMO DOS ASIENTOS POR PERSONA");
                             }
-                            
+                        }   
                         }else if(botonesAsientos[asientoActual].getBackground() == java.awt.Color.BLUE){
                             if(asientoActual == asientoSeleccionado1){
                                 asientoSeleccionado1 = asientoSeleccionado2;
@@ -361,6 +362,7 @@ public class FormVenta extends javax.swing.JFrame {
     }
 
     private void cargarSalidasPorCliente(ArrayList<String> listarSalidasCliente) {
+        this.cmdSalidaSeleccionCliente.removeAllItems();
         this.cmdSalidaSeleccionCliente.addItem("Seleccione aqui...");
         for (int i = 0; i < listarSalidasCliente.size(); i++) {
             cmdSalidaSeleccionCliente.addItem(listarSalidasCliente.get(i));
