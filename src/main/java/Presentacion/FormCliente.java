@@ -22,7 +22,9 @@ public class FormCliente extends javax.swing.JFrame {
         initComponents();
         this.myCliente = fc;
         cargarClientes(this.myCliente.nombresClientes());
+        cargarRutas(this.myCliente.destinoRutas());
         limpiarCliente();
+        condicionarClienteRegistro();
     }
 
     /**
@@ -55,8 +57,8 @@ public class FormCliente extends javax.swing.JFrame {
         cmdPasajeroSeleccion = new javax.swing.JComboBox<>();
         cmbVentaPasaje = new javax.swing.JButton();
         jLabel6 = new javax.swing.JLabel();
-        cmdPasajeroReporte = new javax.swing.JComboBox<>();
-        cmbReporteVentas = new javax.swing.JButton();
+        cmbElegirRuta = new javax.swing.JComboBox<>();
+        cmbMostrarReporte = new javax.swing.JButton();
 
         jLabel24.setFont(new java.awt.Font("Segoe UI", 1, 24)); // NOI18N
         jLabel24.setText("INFORMACION");
@@ -108,12 +110,13 @@ public class FormCliente extends javax.swing.JFrame {
         cmbVentaPasaje.addActionListener(this::cmbVentaPasajeActionPerformed);
 
         jLabel6.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
-        jLabel6.setText("CONTROL DE VENTAS POR CLIENTE:");
+        jLabel6.setText("REPORTE DE VENTAS POR RUTA:");
 
-        cmdPasajeroReporte.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Seleccione un pasajero..." }));
+        cmbElegirRuta.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
 
-        cmbReporteVentas.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
-        cmbReporteVentas.setText("MOSTRAR REPORTE");
+        cmbMostrarReporte.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
+        cmbMostrarReporte.setText("MOSTRAR REPORTE DE VENTAS POR RUTA");
+        cmbMostrarReporte.addActionListener(this::cmbMostrarReporteActionPerformed);
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -121,37 +124,36 @@ public class FormCliente extends javax.swing.JFrame {
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(jLabel1, javax.swing.GroupLayout.DEFAULT_SIZE, 844, Short.MAX_VALUE)
+                .addComponent(jLabel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addContainerGap())
             .addGroup(layout.createSequentialGroup()
                 .addGap(37, 37, 37)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                        .addComponent(jLabel3)
-                        .addComponent(cmdRegistrarCliente, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
-                                .addGroup(layout.createSequentialGroup()
-                                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                        .addComponent(jLabel11)
-                                        .addComponent(jLabel17)
-                                        .addComponent(jLabel5))
-                                    .addGap(43, 43, 43))
-                                .addGroup(javax.swing.GroupLayout.Alignment.LEADING, layout.createSequentialGroup()
-                                    .addComponent(jLabel21)
-                                    .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
-                            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                    .addComponent(jLabel3)
+                    .addComponent(cmdRegistrarCliente, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
+                            .addGroup(layout.createSequentialGroup()
                                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addComponent(txtNombreCliente, javax.swing.GroupLayout.PREFERRED_SIZE, 180, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                    .addComponent(txtCedulaCliente, javax.swing.GroupLayout.PREFERRED_SIZE, 180, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                    .addComponent(txtCelularCliente, javax.swing.GroupLayout.PREFERRED_SIZE, 180, javax.swing.GroupLayout.PREFERRED_SIZE))
-                                .addComponent(txtGmailCliente, javax.swing.GroupLayout.PREFERRED_SIZE, 180, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                        .addComponent(jLabel4)
-                        .addComponent(cmdPasajeroSeleccion, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(cmbVentaPasaje, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(cmdPasajeroReporte, javax.swing.GroupLayout.Alignment.TRAILING, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(cmbReporteVentas, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                    .addComponent(jLabel6))
+                                    .addComponent(jLabel11)
+                                    .addComponent(jLabel17)
+                                    .addComponent(jLabel5))
+                                .addGap(43, 43, 43))
+                            .addGroup(javax.swing.GroupLayout.Alignment.LEADING, layout.createSequentialGroup()
+                                .addComponent(jLabel21)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                .addComponent(txtNombreCliente, javax.swing.GroupLayout.PREFERRED_SIZE, 180, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addComponent(txtCedulaCliente, javax.swing.GroupLayout.PREFERRED_SIZE, 180, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addComponent(txtCelularCliente, javax.swing.GroupLayout.PREFERRED_SIZE, 180, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addComponent(txtGmailCliente, javax.swing.GroupLayout.PREFERRED_SIZE, 180, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                    .addComponent(jLabel4)
+                    .addComponent(cmdPasajeroSeleccion, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(cmbVentaPasaje, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(jLabel6)
+                    .addComponent(cmbElegirRuta, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(cmbMostrarReporte, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addGap(18, 18, 18)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 481, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -194,9 +196,9 @@ public class FormCliente extends javax.swing.JFrame {
                         .addGap(18, 18, 18)
                         .addComponent(jLabel6)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(cmdPasajeroReporte, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(cmbElegirRuta, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addComponent(cmbReporteVentas))
+                        .addComponent(cmbMostrarReporte))
                     .addGroup(layout.createSequentialGroup()
                         .addComponent(jLabel25)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
@@ -215,7 +217,7 @@ public class FormCliente extends javax.swing.JFrame {
         String cedula = this.txtCedulaCliente.getText();
         String celular = this.txtCelularCliente.getText();
         String correo = this.txtGmailCliente.getText();
-        
+        condicionarClienteRegistro();
         String registroCliente = this.myCliente.clienteRegistro(nombre, cedula, celular, correo);
         this.txtMostrar.setText(registroCliente);
         
@@ -232,15 +234,26 @@ public class FormCliente extends javax.swing.JFrame {
         myCuar.setVisible(true);
     }//GEN-LAST:event_cmbVentaPasajeActionPerformed
 
+    private void cmbMostrarReporteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cmbMostrarReporteActionPerformed
+        // TODO add your handling code here:
+        String destinoSeleccionado = cmbElegirRuta.getSelectedItem().toString();
+        if(!destinoSeleccionado.equals("Seleccione aqui...")){
+            String reporteFinal = this.myCliente.generarReporteRutaDiaria(destinoSeleccionado);
+            txtMostrar.setText(reporteFinal);
+        }else{
+            txtMostrar.setText("PORFAVOR SELECCIONE UN DESTINO");
+        }
+    }//GEN-LAST:event_cmbMostrarReporteActionPerformed
+
     /**
      * @param args the command line arguments
      */
     
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JButton cmbReporteVentas;
+    private javax.swing.JComboBox<String> cmbElegirRuta;
+    private javax.swing.JButton cmbMostrarReporte;
     private javax.swing.JButton cmbVentaPasaje;
-    private javax.swing.JComboBox<String> cmdPasajeroReporte;
     private javax.swing.JComboBox<String> cmdPasajeroSeleccion;
     private javax.swing.JButton cmdRegistrarCliente;
     private javax.swing.JLabel jLabel1;
@@ -276,5 +289,28 @@ public class FormCliente extends javax.swing.JFrame {
         this.txtGmailCliente.setText("");
         this.txtCelularCliente.setText("");
         this.txtNombreCliente.setText("");
+    }
+    private void condicionarClienteRegistro(){
+        if(this.txtNombreCliente.getText() == null){
+            this.txtMostrar.setText("DEBE INGRESAR EL NOMBRE PARA HACER EL REGISTRO");
+        }
+        if(this.txtCedulaCliente.getText() == null){
+            this.txtMostrar.setText("DEBE INGRESAR LA CEDULA PARA HACER EL REGISTRO");
+        }
+        if(this.txtCelularCliente.getText() == null){
+            this.txtMostrar.setText("DEBE INGRESAR EL NUMERO TELEFONICO PARA HACER EL REGISTRO");
+        }
+        if(this.txtGmailCliente.getText() == null){
+            this.txtMostrar.setText("DEBE INGRESAR EL CORREO PARA HACER EL REGISTRO");
+        }
+        
+    }
+
+    private void cargarRutas(ArrayList<String> destinoRutas) {
+        this.cmbElegirRuta.removeAllItems();
+        this.cmbElegirRuta.addItem("Seleccione aqui...");
+        for (int i = 0; i < destinoRutas.size(); i++) {
+            cmbElegirRuta.addItem(destinoRutas.get(i));
+        }
     }
 }

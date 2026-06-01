@@ -25,7 +25,6 @@ public class FormVenta extends javax.swing.JFrame {
         this.myVentas = fv;
         this.clienteSeleccionado = cliente;
         cargarSalidas(this.myVentas.salidasFechaDestino());
-        cargarSalidasPorCliente(this.myVentas.listarSalidasCliente(this.clienteSeleccionado));
         this.setTitle("CLIENTE: " +  this.clienteSeleccionado.toUpperCase());
     }
 
@@ -41,16 +40,13 @@ public class FormVenta extends javax.swing.JFrame {
         panelAsientos = new javax.swing.JPanel();
         jLabel1 = new javax.swing.JLabel();
         jLabel4 = new javax.swing.JLabel();
-        cmdSalidaSeleccionCliente = new javax.swing.JComboBox<>();
         cmbMostrarPuestos = new javax.swing.JButton();
         cmbRealizarCompra = new javax.swing.JButton();
         jLabel5 = new javax.swing.JLabel();
         jScrollPane1 = new javax.swing.JScrollPane();
         txtMostrar = new javax.swing.JTextArea();
         cmbIdaYVuelta = new javax.swing.JButton();
-        jLabel6 = new javax.swing.JLabel();
         cmdSalidaSeleccion1 = new javax.swing.JComboBox<>();
-        cmbReprogramar = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         setTitle("VENTAS");
@@ -71,13 +67,11 @@ public class FormVenta extends javax.swing.JFrame {
 
         jLabel1.setFont(new java.awt.Font("Segoe UI", 1, 48)); // NOI18N
         jLabel1.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        jLabel1.setText("VENTA - CANCELACION - REPROGRAMACION ");
+        jLabel1.setText("VENTA - CANCELACION ");
         jLabel1.setToolTipText("");
 
         jLabel4.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
         jLabel4.setText("VENTA:");
-
-        cmdSalidaSeleccionCliente.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Seleccione una salida..." }));
 
         cmbMostrarPuestos.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
         cmbMostrarPuestos.setText("CARGAR PUESTOS");
@@ -98,14 +92,7 @@ public class FormVenta extends javax.swing.JFrame {
         cmbIdaYVuelta.setText("COMPRAR IDA Y VUELTA");
         cmbIdaYVuelta.addActionListener(this::cmbIdaYVueltaActionPerformed);
 
-        jLabel6.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
-        jLabel6.setText("REPROGRAMACION:");
-
         cmdSalidaSeleccion1.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Seleccione una salida..." }));
-
-        cmbReprogramar.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
-        cmbReprogramar.setText("CARGAR PUESTOS");
-        cmbReprogramar.addActionListener(this::cmbReprogramarActionPerformed);
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -115,16 +102,12 @@ public class FormVenta extends javax.swing.JFrame {
                 .addGap(60, 60, 60)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                     .addGroup(layout.createSequentialGroup()
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                                .addComponent(jLabel4)
-                                .addComponent(cmdSalidaSeleccionCliente, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                .addComponent(cmbMostrarPuestos, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                .addComponent(cmbRealizarCompra, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                .addComponent(cmbIdaYVuelta, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 201, Short.MAX_VALUE)
-                                .addComponent(cmdSalidaSeleccion1, javax.swing.GroupLayout.Alignment.TRAILING, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                .addComponent(cmbReprogramar, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                            .addComponent(jLabel6))
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                            .addComponent(jLabel4)
+                            .addComponent(cmbMostrarPuestos, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(cmbRealizarCompra, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(cmbIdaYVuelta, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 201, Short.MAX_VALUE)
+                            .addComponent(cmdSalidaSeleccion1, javax.swing.GroupLayout.Alignment.TRAILING, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                         .addGap(18, 18, 18)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(jLabel5)
@@ -156,13 +139,7 @@ public class FormVenta extends javax.swing.JFrame {
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(cmbRealizarCompra)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(cmbIdaYVuelta)
-                        .addGap(18, 18, 18)
-                        .addComponent(jLabel6)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(cmdSalidaSeleccionCliente, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addComponent(cmbReprogramar))
+                        .addComponent(cmbIdaYVuelta))
                     .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 340, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(32, 41, Short.MAX_VALUE))
         );
@@ -223,23 +200,6 @@ public class FormVenta extends javax.swing.JFrame {
         }
     }//GEN-LAST:event_cmbIdaYVueltaActionPerformed
 
-    private void cmbReprogramarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cmbReprogramarActionPerformed
-        // TODO add your handling code here:
-        String salida = cmdSalidaSeleccionCliente.getSelectedItem().toString();
-        if(salida.equalsIgnoreCase("Seleccione aqui...")){
-            txtMostrar.setText("DEBE ESCOGER UNA SALIDA DEL CLIENTE: " + this.clienteSeleccionado);
-        }
-        String resultado = this.myVentas.reprogramarPasajeCliente(this.clienteSeleccionado, salida);
-        if(!resultado.equals("CANCELADO")){
-            int capacidadBus = this.myVentas.obtenerCapacidad(salida);
-            this.dibujarMapaAsientos(resultado,capacidadBus);
-        }else{
-            txtMostrar.setText("NO HABIAN CUPOS DISPONIBLES, DINERO REEMBOLSADO");
-            panelAsientos.removeAll();;
-            panelAsientos.repaint();
-        }    
-    }//GEN-LAST:event_cmbReprogramarActionPerformed
-
     /**
      * @param args the command line arguments
      */
@@ -249,13 +209,10 @@ public class FormVenta extends javax.swing.JFrame {
     private javax.swing.JButton cmbIdaYVuelta;
     private javax.swing.JButton cmbMostrarPuestos;
     private javax.swing.JButton cmbRealizarCompra;
-    private javax.swing.JButton cmbReprogramar;
     private javax.swing.JComboBox<String> cmdSalidaSeleccion1;
-    private javax.swing.JComboBox<String> cmdSalidaSeleccionCliente;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel4;
     private javax.swing.JLabel jLabel5;
-    private javax.swing.JLabel jLabel6;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JPanel panelAsientos;
     private javax.swing.JTextArea txtMostrar;
@@ -319,7 +276,6 @@ public class FormVenta extends javax.swing.JFrame {
                     botonesAsientos[numeroAsiento].addActionListener(new java.awt.event.ActionListener() {
                     @Override
                     public void actionPerformed(java.awt.event.ActionEvent e) {
-                        if(botonesAsientos[asientoActual]!= null){
                         if(botonesAsientos[asientoActual].getBackground() == java.awt.Color.GREEN){
                             if(cantidadAsientosHundidos == 0){
                                 asientoSeleccionado1 = asientoActual;
@@ -339,7 +295,6 @@ public class FormVenta extends javax.swing.JFrame {
                             }else{
                                 txtMostrar.setText("MAXIMO DOS ASIENTOS POR PERSONA");
                             }
-                        }   
                         }else if(botonesAsientos[asientoActual].getBackground() == java.awt.Color.BLUE){
                             if(asientoActual == asientoSeleccionado1){
                                 asientoSeleccionado1 = asientoSeleccionado2;
@@ -359,13 +314,5 @@ public class FormVenta extends javax.swing.JFrame {
         }
         panelAsientos.revalidate();
         panelAsientos.repaint();
-    }
-
-    private void cargarSalidasPorCliente(ArrayList<String> listarSalidasCliente) {
-        this.cmdSalidaSeleccionCliente.removeAllItems();
-        this.cmdSalidaSeleccionCliente.addItem("Seleccione aqui...");
-        for (int i = 0; i < listarSalidasCliente.size(); i++) {
-            cmdSalidaSeleccionCliente.addItem(listarSalidasCliente.get(i));
-        }
     }
 }
