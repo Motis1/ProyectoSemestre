@@ -89,6 +89,7 @@ public class FormAdmin extends javax.swing.JFrame {
         jLabel8 = new javax.swing.JLabel();
         cmbMantenimientoCambiarEstado = new javax.swing.JButton();
         cmdMantenimiento = new javax.swing.JComboBox<>();
+        cmdCancelados = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         setTitle("ADMINISTRACION");
@@ -210,6 +211,10 @@ public class FormAdmin extends javax.swing.JFrame {
 
         cmdMantenimiento.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Seleccione aqui...", "CONDUCTOR", "BUS", "RUTA", "SALIDA" }));
 
+        cmdCancelados.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
+        cmdCancelados.setText("REPORTE DE CANCELADOS");
+        cmdCancelados.addActionListener(this::cmdCanceladosActionPerformed);
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
@@ -248,7 +253,8 @@ public class FormAdmin extends javax.swing.JFrame {
                                             .addComponent(cmdRegistrarConductor, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 283, javax.swing.GroupLayout.PREFERRED_SIZE))
                                         .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                                             .addComponent(cmdRegistrarBus, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                            .addComponent(cmdCambiarEstado, javax.swing.GroupLayout.PREFERRED_SIZE, 283, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                                            .addComponent(cmdCambiarEstado, javax.swing.GroupLayout.PREFERRED_SIZE, 283, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                        .addComponent(cmdCancelados, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 283, javax.swing.GroupLayout.PREFERRED_SIZE))
                                     .addGroup(layout.createSequentialGroup()
                                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
                                             .addGroup(layout.createSequentialGroup()
@@ -390,7 +396,9 @@ public class FormAdmin extends javax.swing.JFrame {
                                     .addComponent(jLabel8)
                                     .addComponent(cmdMantenimiento, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                                 .addGap(18, 18, 18)
-                                .addComponent(cmbMantenimientoCambiarEstado))
+                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                                    .addComponent(cmbMantenimientoCambiarEstado)
+                                    .addComponent(cmdCancelados)))
                             .addGroup(layout.createSequentialGroup()
                                 .addGap(6, 6, 6)
                                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
@@ -546,6 +554,11 @@ public class FormAdmin extends javax.swing.JFrame {
         this.txtMostrar.setText(reporte);
     }//GEN-LAST:event_cmbMantenimientoCambiarEstadoActionPerformed
 
+    private void cmdCanceladosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cmdCanceladosActionPerformed
+        // TODO add your handling code here:
+        txtMostrar.setText(this.myCopetran.generarReporteCancelados());
+    }//GEN-LAST:event_cmdCanceladosActionPerformed
+
     /**
      * @param args the command line arguments
      */
@@ -559,6 +572,7 @@ public class FormAdmin extends javax.swing.JFrame {
     private javax.swing.JButton cmbMantenimientoCambiarEstado;
     private javax.swing.JComboBox<String> cmbTipoServicio;
     private javax.swing.JButton cmdCambiarEstado;
+    private javax.swing.JButton cmdCancelados;
     private javax.swing.JButton cmdListar;
     private javax.swing.JComboBox<String> cmdMantenimiento;
     private javax.swing.JButton cmdRegistrarBus;

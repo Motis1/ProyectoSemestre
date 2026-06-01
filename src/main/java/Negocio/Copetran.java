@@ -404,6 +404,7 @@ public class Copetran {
             }
             Puesto seleccionado = salidaSeleccionada.getMyBus().getMyPuestos()[numeroAsiento1];
             Pasaje nuevo = new Pasaje(pasajero, salidaSeleccionada, seleccionado, salidaSeleccionada.getMyRuta().getTarifaBase());
+            this.cajaCopetran.setMontoCaja(this.cajaCopetran.getMontoCaja() + nuevo.getValor());
             this.listaPasajes.add(nuevo);
             salidaSeleccionada.getAsientosOcupados()[numeroAsiento1] = true;
             return "VENTA EXITOSA\n\n" + nuevo;
@@ -602,32 +603,58 @@ public class Copetran {
     //REPORTES
     // POR RUTAS DIARIA
     public String generarReporteRutaDiaria(String textoRuta){
-        String reporte = "REPORTE DIARIO - RUTAS COPETRAN \n" +
-                         "Total vendido: " + calcularTotalVendidoRuta(textoRuta) + 
-                         "Total en caja: " + this.cajaCopetran.getMontoCaja() + "\n";
+        // Formato limpio, directo en minúsculas línea por línea como lo pediste
+        String reporte = "reporte diario - rutas copetran\n" +
+                         "total vendido: $" + calcularTotalVendidoRuta(textoRuta) + "\n" +
+                         "total en caja: $" + this.cajaCopetran.getMontoCaja() + "\n";
+                         
         reporte += obtenerListaVentasPorRuta();
         return reporte;
     }
     //METODOS AUXILIARES
     private double calcularTotalVendidoRuta(String destino) {
-    double acumulado = 0;
+        double acumulado = 0;
         for (int i = 0; i < listaPasajes.size(); i++) {
             Pasaje p = listaPasajes.get(i);
             if (p.getMySalida().getMyRuta().getDestino().equalsIgnoreCase(destino) && !p.getEstado().equalsIgnoreCase("CANCELADO")) {
                 acumulado += p.getValor();
             }    
         }
-    return acumulado;
+        return acumulado;
     }
     private String obtenerListaVentasPorRuta() {
         String acum = "";
         for (int i = 0; i < listaRutas.size(); i++) {
             String dest = listaRutas.get(i).getDestino();
-            acum += dest + " - total ventas: $" + calcularTotalVendidoRuta(dest) + "\n";
+            acum += dest.toLowerCase() + " - total ventas: $" + calcularTotalVendidoRuta(dest) + "\n";
         }
         return acum;
     }
-    //CANCELAR POR PETICION DEL CLIENTE
+    //REPORTE DE CANCELADOS
+    public String generarReporteCancelados() {
+        String reporte = "reporte de tiquetes cancelados - copetran\n\n";
+        boolean hayCancelados = false;
     
+            for (int i = 0; i < listaPasajes.size(); i++) {
+                Pasaje p = listaPasajes.get(i);
+        
+                if (p.getEstado().equalsIgnoreCase("CANCELADO")) {
+                    reporte += "cliente: " + p.getMyPasajero().getNombre().toLowerCase() +
+                       " | ruta: " + p.getMySalida().getMyRuta().getDestino().toLowerCase() +
+                       " | puesto: " + p.getMyPuesto().getNumeroPuestos()+
+                       " | valor devuelto: $" + p.getValor() + "\n";
+                hayCancelados = true;
+            }
+        }
     
+        if (!hayCancelados) {
+            reporte += "NO SE HA CANCELADO NINGUN PASAJE\n";
+        }
+    
+        reporte += "=========================================\n" +
+               "total reembolsado general: $" + this.cajaCopetran.getTotalRembolsado() + "\n" +
+               "monto neto actual en caja: $" + this.cajaCopetran.getMontoCaja() + "\n";
+               
+        return reporte;
+    }
 }

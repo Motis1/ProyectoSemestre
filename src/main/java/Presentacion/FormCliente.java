@@ -158,7 +158,7 @@ public class FormCliente extends javax.swing.JFrame {
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 481, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jLabel25))
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addContainerGap(47, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -212,14 +212,14 @@ public class FormCliente extends javax.swing.JFrame {
     private void cmdRegistrarClienteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cmdRegistrarClienteActionPerformed
         // TODO add your handling code here:
         //String añosExperiencia, String nombre, String cedula, String celular, String correo, int sueldo
-        this.txtMostrar.setText("");
+        this.txtMostrar1.setText("");
         String nombre = this.txtNombreCliente.getText();
         String cedula = this.txtCedulaCliente.getText();
         String celular = this.txtCelularCliente.getText();
         String correo = this.txtGmailCliente.getText();
         condicionarClienteRegistro();
         String registroCliente = this.myCliente.clienteRegistro(nombre, cedula, celular, correo);
-        this.txtMostrar.setText(registroCliente);
+        this.txtMostrar1.setText(registroCliente);
         
         if(registroCliente.contains("CLIENTE REGISTRADO CON EXITO")){
             cargarClientes(this.myCliente.nombresClientes());
@@ -239,9 +239,9 @@ public class FormCliente extends javax.swing.JFrame {
         String destinoSeleccionado = cmbElegirRuta.getSelectedItem().toString();
         if(!destinoSeleccionado.equals("Seleccione aqui...")){
             String reporteFinal = this.myCliente.generarReporteRutaDiaria(destinoSeleccionado);
-            txtMostrar.setText(reporteFinal);
+            txtMostrar1.setText(reporteFinal);
         }else{
-            txtMostrar.setText("PORFAVOR SELECCIONE UN DESTINO");
+            txtMostrar1.setText("PORFAVOR SELECCIONE UN DESTINO");
         }
     }//GEN-LAST:event_cmbMostrarReporteActionPerformed
 

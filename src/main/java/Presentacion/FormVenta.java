@@ -67,7 +67,7 @@ public class FormVenta extends javax.swing.JFrame {
 
         jLabel1.setFont(new java.awt.Font("Segoe UI", 1, 48)); // NOI18N
         jLabel1.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        jLabel1.setText("VENTA - CANCELACION ");
+        jLabel1.setText("VENTA - CANCELACION - REPROGRAMACION ");
         jLabel1.setToolTipText("");
 
         jLabel4.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
@@ -315,4 +315,6 @@ public class FormVenta extends javax.swing.JFrame {
         panelAsientos.revalidate();
         panelAsientos.repaint();
     }
+     
+    
 }

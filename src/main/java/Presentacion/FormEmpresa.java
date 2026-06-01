@@ -35,9 +35,7 @@ public class FormEmpresa extends javax.swing.JFrame {
         cmdAdmin = new javax.swing.JButton();
         cmdCliente = new javax.swing.JButton();
         jLabel2 = new javax.swing.JLabel();
-        txtMontoCaja = new javax.swing.JTextField();
-        cmbRegistrarMonto = new javax.swing.JButton();
-        jLabel1 = new javax.swing.JLabel();
+        jLabel3 = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setTitle("INICIO");
@@ -54,10 +52,7 @@ public class FormEmpresa extends javax.swing.JFrame {
         jLabel2.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         jLabel2.setText("COPETRAN");
 
-        cmbRegistrarMonto.setText("REGISTRAR MONTO ");
-
-        jLabel1.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
-        jLabel1.setText("INTRODUCIR VALOR INICIAL DE CAJA: ");
+        jLabel3.setText("caja ya inicializada con 5000000 COP");
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -66,10 +61,7 @@ public class FormEmpresa extends javax.swing.JFrame {
             .addGroup(layout.createSequentialGroup()
                 .addGap(34, 34, 34)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                        .addComponent(jLabel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(txtMontoCaja)
-                        .addComponent(cmbRegistrarMonto, javax.swing.GroupLayout.PREFERRED_SIZE, 256, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(jLabel3)
                     .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                         .addComponent(cmdAdmin, javax.swing.GroupLayout.PREFERRED_SIZE, 359, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addComponent(cmdCliente, javax.swing.GroupLayout.PREFERRED_SIZE, 359, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -85,13 +77,9 @@ public class FormEmpresa extends javax.swing.JFrame {
                 .addComponent(cmdAdmin, javax.swing.GroupLayout.PREFERRED_SIZE, 45, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(cmdCliente, javax.swing.GroupLayout.PREFERRED_SIZE, 45, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(18, 18, 18)
-                .addComponent(jLabel1)
-                .addGap(18, 18, 18)
-                .addComponent(txtMontoCaja, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(18, 18, 18)
-                .addComponent(cmbRegistrarMonto)
-                .addContainerGap(55, Short.MAX_VALUE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addComponent(jLabel3)
+                .addContainerGap(41, Short.MAX_VALUE))
         );
 
         pack();
@@ -137,11 +125,9 @@ public class FormEmpresa extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JButton cmbRegistrarMonto;
     private javax.swing.JButton cmdAdmin;
     private javax.swing.JButton cmdCliente;
-    private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
-    private javax.swing.JTextField txtMontoCaja;
+    private javax.swing.JLabel jLabel3;
     // End of variables declaration//GEN-END:variables
 }
