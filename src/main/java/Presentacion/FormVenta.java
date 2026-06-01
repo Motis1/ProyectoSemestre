@@ -23,8 +23,9 @@ public class FormVenta extends javax.swing.JFrame {
     public FormVenta(Copetran fv,String cliente) {
         initComponents();
         this.myVentas = fv;
-        cargarSalidas(this.myVentas.salidasFechaDestino());
         this.clienteSeleccionado = cliente;
+        cargarSalidas(this.myVentas.salidasFechaDestino());
+        cargarSalidasPorCliente(this.myVentas.listarSalidasCliente(this.clienteSeleccionado));
         this.setTitle("CLIENTE: " +  this.clienteSeleccionado.toUpperCase());
     }
 
@@ -40,13 +41,16 @@ public class FormVenta extends javax.swing.JFrame {
         panelAsientos = new javax.swing.JPanel();
         jLabel1 = new javax.swing.JLabel();
         jLabel4 = new javax.swing.JLabel();
-        cmdSalidaSeleccion = new javax.swing.JComboBox<>();
+        cmdSalidaSeleccionCliente = new javax.swing.JComboBox<>();
         cmbMostrarPuestos = new javax.swing.JButton();
         cmbRealizarCompra = new javax.swing.JButton();
         jLabel5 = new javax.swing.JLabel();
         jScrollPane1 = new javax.swing.JScrollPane();
         txtMostrar = new javax.swing.JTextArea();
         cmbIdaYVuelta = new javax.swing.JButton();
+        jLabel6 = new javax.swing.JLabel();
+        cmdSalidaSeleccion1 = new javax.swing.JComboBox<>();
+        cmbReprogramar = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         setTitle("VENTAS");
@@ -73,7 +77,7 @@ public class FormVenta extends javax.swing.JFrame {
         jLabel4.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
         jLabel4.setText("VENTA:");
 
-        cmdSalidaSeleccion.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Seleccione una salida..." }));
+        cmdSalidaSeleccionCliente.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Seleccione una salida..." }));
 
         cmbMostrarPuestos.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
         cmbMostrarPuestos.setText("CARGAR PUESTOS");
@@ -94,6 +98,15 @@ public class FormVenta extends javax.swing.JFrame {
         cmbIdaYVuelta.setText("COMPRAR IDA Y VUELTA");
         cmbIdaYVuelta.addActionListener(this::cmbIdaYVueltaActionPerformed);
 
+        jLabel6.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
+        jLabel6.setText("REPROGRAMACION:");
+
+        cmdSalidaSeleccion1.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Seleccione una salida..." }));
+
+        cmbReprogramar.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
+        cmbReprogramar.setText("CARGAR PUESTOS");
+        cmbReprogramar.addActionListener(this::cmbReprogramarActionPerformed);
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
@@ -102,12 +115,16 @@ public class FormVenta extends javax.swing.JFrame {
                 .addGap(60, 60, 60)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                     .addGroup(layout.createSequentialGroup()
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                            .addComponent(jLabel4)
-                            .addComponent(cmdSalidaSeleccion, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                            .addComponent(cmbMostrarPuestos, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                            .addComponent(cmbRealizarCompra, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                            .addComponent(cmbIdaYVuelta, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 201, Short.MAX_VALUE))
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                                .addComponent(jLabel4)
+                                .addComponent(cmdSalidaSeleccionCliente, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                .addComponent(cmbMostrarPuestos, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                .addComponent(cmbRealizarCompra, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                .addComponent(cmbIdaYVuelta, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 201, Short.MAX_VALUE)
+                                .addComponent(cmdSalidaSeleccion1, javax.swing.GroupLayout.Alignment.TRAILING, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                .addComponent(cmbReprogramar, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                            .addComponent(jLabel6))
                         .addGap(18, 18, 18)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(jLabel5)
@@ -128,21 +145,25 @@ public class FormVenta extends javax.swing.JFrame {
                 .addComponent(panelAsientos, javax.swing.GroupLayout.PREFERRED_SIZE, 314, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jLabel5)
+                    .addComponent(jLabel4))
+                .addGap(12, 12, 12)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
-                        .addComponent(jLabel5)
+                        .addComponent(cmdSalidaSeleccion1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(12, 12, 12)
-                        .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 340, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGroup(layout.createSequentialGroup()
-                        .addComponent(jLabel4)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addComponent(cmdSalidaSeleccion, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                         .addComponent(cmbMostrarPuestos)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(cmbRealizarCompra)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(cmbIdaYVuelta)
-                        .addGap(70, 70, 70)))
+                        .addGap(18, 18, 18)
+                        .addComponent(jLabel6)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(cmdSalidaSeleccionCliente, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addComponent(cmbReprogramar))
+                    .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 340, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(32, 41, Short.MAX_VALUE))
         );
 
@@ -152,11 +173,11 @@ public class FormVenta extends javax.swing.JFrame {
     private void cmbMostrarPuestosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cmbMostrarPuestosActionPerformed
         // TODO add your handling code here:
         this.txtMostrar.setText("");
-        if(this.cmdSalidaSeleccion.getSelectedItem().equals("Seleccione una salida...")){
+        if(this.cmdSalidaSeleccion1.getSelectedItem().equals("Seleccione una salida...")){
             this.txtMostrar.setText("DEBE INGRESAR UNA SALIDA");
         }
         
-        String texto = this.cmdSalidaSeleccion.getSelectedItem().toString();
+        String texto = this.cmdSalidaSeleccion1.getSelectedItem().toString();
         int capacidadBus = this.myVentas.obtenerCapacidad(texto);
         dibujarMapaAsientos(texto,capacidadBus);
         
@@ -167,9 +188,7 @@ public class FormVenta extends javax.swing.JFrame {
         if(cantidadAsientosHundidos == 0){
             this.txtMostrar.setText("DEBE SELECCIONAR ALMENOS UN ASIENTO EN EL PANEL");
         }
-         String textoSalida = cmdSalidaSeleccion.getSelectedItem().toString();
-         Negocio.Salida salidaActual = this.myVentas.buscarSalida(textoSalida);
-         
+         String textoSalida = cmdSalidaSeleccion1.getSelectedItem().toString();
          String resultado = this.myVentas.ventaPasajeIndividual(this.clienteSeleccionado, textoSalida, asientoSeleccionado1, asientoSeleccionado2);
          this.txtMostrar.setText(resultado);
          
@@ -181,6 +200,7 @@ public class FormVenta extends javax.swing.JFrame {
              int capacidadBusNueva = this.myVentas.obtenerCapacidad(textoSalida);
              dibujarMapaAsientos(textoSalida, capacidadBusNueva);
          }
+         
     }//GEN-LAST:event_cmbRealizarCompraActionPerformed
 
     private void cmbIdaYVueltaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cmbIdaYVueltaActionPerformed
@@ -188,7 +208,7 @@ public class FormVenta extends javax.swing.JFrame {
         if(cantidadAsientosHundidos != 1){
             txtMostrar.setText("DEBE SELECCIONAR EXACTAMENTE UN SOLO ASIENTO");
         }
-        String textoSalida = cmdSalidaSeleccion.getSelectedItem().toString();
+        String textoSalida = cmdSalidaSeleccion1.getSelectedItem().toString();
         
         String resultado = this.myVentas.idaYvuelta(this.clienteSeleccionado, textoSalida, asientoSeleccionado1);
         txtMostrar.setText(resultado);
@@ -203,6 +223,23 @@ public class FormVenta extends javax.swing.JFrame {
         }
     }//GEN-LAST:event_cmbIdaYVueltaActionPerformed
 
+    private void cmbReprogramarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cmbReprogramarActionPerformed
+        // TODO add your handling code here:
+        String salida = cmdSalidaSeleccionCliente.getSelectedItem().toString();
+        if(salida.equalsIgnoreCase("Seleccione aqui...")){
+            txtMostrar.setText("DEBE ESCOGER UNA SALIDA DEL CLIENTE: " + this.clienteSeleccionado);
+        }
+        String resultado = this.myVentas.reprogramarPasajeCliente(this.clienteSeleccionado, salida);
+        if(!resultado.equals("CANCELADO")){
+            int capacidadBus = this.myVentas.obtenerCapacidad(salida);
+            this.dibujarMapaAsientos(resultado,capacidadBus);
+        }else{
+            txtMostrar.setText("NO HABIAN CUPOS DISPONIBLES, DINERO REEMBOLSADO");
+            panelAsientos.removeAll();;
+            panelAsientos.repaint();
+        }    
+    }//GEN-LAST:event_cmbReprogramarActionPerformed
+
     /**
      * @param args the command line arguments
      */
@@ -212,23 +249,23 @@ public class FormVenta extends javax.swing.JFrame {
     private javax.swing.JButton cmbIdaYVuelta;
     private javax.swing.JButton cmbMostrarPuestos;
     private javax.swing.JButton cmbRealizarCompra;
-    private javax.swing.JComboBox<String> cmdSalidaSeleccion;
+    private javax.swing.JButton cmbReprogramar;
+    private javax.swing.JComboBox<String> cmdSalidaSeleccion1;
+    private javax.swing.JComboBox<String> cmdSalidaSeleccionCliente;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel4;
     private javax.swing.JLabel jLabel5;
+    private javax.swing.JLabel jLabel6;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JPanel panelAsientos;
     private javax.swing.JTextArea txtMostrar;
     // End of variables declaration//GEN-END:variables
 
     private void cargarSalidas(ArrayList<String> salidasFechaDestino) {
-        this.cmdSalidaSeleccion.removeAllItems();
-        this.cmdSalidaSeleccion.addItem("Seleccione aqui...");
-        
-        SimpleDateFormat fecha = new SimpleDateFormat("dd/MM/yyyy HH:mm");
-        
+        this.cmdSalidaSeleccion1.removeAllItems();
+        this.cmdSalidaSeleccion1.addItem("Seleccione aqui...");
         for (int i = 0; i < salidasFechaDestino.size(); i++) {
-            cmdSalidaSeleccion.addItem(salidasFechaDestino.get(i));
+            cmdSalidaSeleccion1.addItem(salidasFechaDestino.get(i));
         }
     }
     
@@ -322,6 +359,11 @@ public class FormVenta extends javax.swing.JFrame {
         panelAsientos.revalidate();
         panelAsientos.repaint();
     }
-    
-    
+
+    private void cargarSalidasPorCliente(ArrayList<String> listarSalidasCliente) {
+        this.cmdSalidaSeleccionCliente.addItem("Seleccione aqui...");
+        for (int i = 0; i < listarSalidasCliente.size(); i++) {
+            cmdSalidaSeleccionCliente.addItem(listarSalidasCliente.get(i));
+        }
+    }
 }

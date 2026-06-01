@@ -3,7 +3,7 @@ package Negocio;
 import java.text.SimpleDateFormat;
 
 public class Pasaje {
-    private int contador = 1;
+    private static int contador = 1;
     private String iD;
     private Persona myPasajero;
     private Salida mySalida;

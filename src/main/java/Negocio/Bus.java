@@ -81,7 +81,7 @@ public class Bus {
         return "Placa: " + placaUnica + 
                "\nTipo de servicio: " + tipoServicio + 
                "\nEstado: " + estado +
-               "\nCapacidad: " + capacidad + "Puestos" +
+               "\nCapacidad: " + capacidad + " Puestos" +
                "\nConductor :\n" + conductor;
     }
     

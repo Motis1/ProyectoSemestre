@@ -1,22 +1,22 @@
 package Negocio;
 public class Caja {
-    private int montoCaja;
+    private float montoCaja;
     private float totalVendido;
     private float totalRembolsado;
     private float ingresoNeto;
     
     public Caja(){
-        this.montoCaja = 5000000;
+        this.montoCaja = 5000000F;
         this.totalVendido = 0.0F;
         this.totalRembolsado = 0.0F;
         this.ingresoNeto = 0.0F;
     }
 
-    public int getMontoCaja() {
+    public float getMontoCaja() {
         return montoCaja;
     }
 
-    public void setMontoCaja(int montoCaja) {
+    public void setMontoCaja(float montoCaja) {
         this.montoCaja = montoCaja;
     }
 
