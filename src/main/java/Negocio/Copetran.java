@@ -603,10 +603,10 @@ public class Copetran {
     //REPORTES
     // POR RUTAS DIARIA
     public String generarReporteRutaDiaria(String textoRuta){
-        // Formato limpio, directo en minúsculas línea por línea como lo pediste
-        String reporte = "reporte diario - rutas copetran\n" +
-                         "total vendido: $" + calcularTotalVendidoRuta(textoRuta) + "\n" +
-                         "total en caja: $" + this.cajaCopetran.getMontoCaja() + "\n";
+        String reporte = "REPORTE DIARIO - RUTAS COPETRAN\n\n" +
+                         "Total vendido: $" + calcularTotalVendidoRuta(textoRuta) + "\n" +
+                         "Total en caja: $" + this.cajaCopetran.getMontoCaja() + "\n\n" + 
+                         "VENTAS POR RUTA:\n";
                          
         reporte += obtenerListaVentasPorRuta();
         return reporte;
@@ -623,12 +623,12 @@ public class Copetran {
         return acumulado;
     }
     private String obtenerListaVentasPorRuta() {
-        String acum = "";
+        String texto = "";
         for (int i = 0; i < listaRutas.size(); i++) {
-            String dest = listaRutas.get(i).getDestino();
-            acum += dest.toLowerCase() + " - total ventas: $" + calcularTotalVendidoRuta(dest) + "\n";
+            String destino = listaRutas.get(i).getCodigo() + " - " + listaRutas.get(i).getDestino();
+            texto += destino + " - $ " + calcularTotalVendidoRuta(destino) + "\n";
         }
-        return acum;
+        return texto;
     }
     //REPORTE DE CANCELADOS
     public String generarReporteCancelados() {

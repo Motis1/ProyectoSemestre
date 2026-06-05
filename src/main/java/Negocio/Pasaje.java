@@ -76,8 +76,8 @@ public class Pasaje {
         return "Tiquete: " + iD + 
                "\nPasajero: " + myPasajero.getCedula() + " - " + myPasajero.getNombre() + 
                "\nSalida: " + mySalida.getiD() + "(" + mySalida.getMyRuta().getOrigen() + " - " + mySalida.getMyRuta().getDestino() + ") " + fechaModificada +
-               "\nBus: " + mySalida.getMyBus().getPlacaUnica() + "(" +mySalida.getMyBus().getTipoServicio() + ") Capacidad: " + mySalida.getMyBus().getCapacidad() + 
-               "\nSilla: " + myPuesto + 
+               "\nBus: " + mySalida.getMyBus().getPlacaUnica() + " (" +mySalida.getMyBus().getTipoServicio() + ") Capacidad: " + mySalida.getMyBus().getCapacidad() + 
+               "\nSilla: " + myPuesto.getNumeroPuestos() + 
                "\nValor: " + valor + 
                "\nEstado: " + estado;
     }

@@ -194,7 +194,8 @@ public class FormAdmin extends javax.swing.JFrame {
         jLabel24.setText("INFORMACION");
 
         cmdCambiarEstado.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
-        cmdCambiarEstado.setText("CAMBIAR ESTADO - ACTUAL");
+        cmdCambiarEstado.setText("ACTUALIZAR HORA DEL PROGRAMA");
+        cmdCambiarEstado.setToolTipText("");
         cmdCambiarEstado.addActionListener(this::cmdCambiarEstadoActionPerformed);
 
         jLabel26.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
@@ -396,9 +397,7 @@ public class FormAdmin extends javax.swing.JFrame {
                                     .addComponent(jLabel8)
                                     .addComponent(cmdMantenimiento, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                                 .addGap(18, 18, 18)
-                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                                    .addComponent(cmbMantenimientoCambiarEstado)
-                                    .addComponent(cmdCancelados)))
+                                .addComponent(cmbMantenimientoCambiarEstado))
                             .addGroup(layout.createSequentialGroup()
                                 .addGap(6, 6, 6)
                                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
@@ -431,8 +430,10 @@ public class FormAdmin extends javax.swing.JFrame {
                                 .addGap(18, 18, 18)
                                 .addComponent(cmdRegistrarBus)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                                .addComponent(cmdCambiarEstado)))))
-                .addContainerGap(43, Short.MAX_VALUE))
+                                .addComponent(cmdCambiarEstado)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                                .addComponent(cmdCancelados)))))
+                .addContainerGap(41, Short.MAX_VALUE))
         );
 
         pack();

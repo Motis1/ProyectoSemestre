@@ -99,32 +99,17 @@ public class Salida {
         }
         return false;
     }
-    /*public boolean busHorario(Date fecha, int horasDuracion){
-        if(this.estado.equalsIgnoreCase("FINALIZADO")||this.estado.equalsIgnoreCase("CANCELADO")){
-            return false;
-        }
-         java.util.Calendar fechaNueva = java.util.Calendar.getInstance();
-         fechaNueva.setTime(fecha);
-         Date fechaFinNueva = fechaNueva.getTime();
-         
-         java.util.Calendar fechaActual = java.util.Calendar.getInstance();
-         fechaActual.setTime(this.fechaHora);
-         fechaActual.add(java.util.Calendar.HOUR_OF_DAY, this.myRuta.getTiempoDeViaje());
-         Date fechaFinActual = fechaActual.getTime();
-         
-         return this.fechaHora.before(fechaFinNueva) && fechaFinActual.after(fecha);
-    }*/
-
+    
     @Override
     public String toString() {
         SimpleDateFormat formatoFecha = new SimpleDateFormat("dd/MM/yyy HH:mm");
         String fechaModificada = formatoFecha.format(fechaHora);
         return "ID: " + iD +
-               "\nDESTINO:\n" + myRuta.getDestino() + 
-               "\nBUS ASIGNADO:" + myBus.getPlacaUnica() + 
+               "\nDESTINO: " + myRuta.getDestino() + 
+               "\nBUS ASIGNADO: " + myBus.getPlacaUnica() + 
                "\nCONDUCTOR: " + myBus.getConductor().getNombre() + 
                "\nCLASE: " + myBus.getTipoServicio()+
-               "\nEstado: " + estado + 
-               "\nFecha y hora: " + fechaModificada;
+               "\nESTADO: " + estado + 
+               "\nFECHA Y HORA: " + fechaModificada;
     }
 }
