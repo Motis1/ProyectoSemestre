@@ -247,8 +247,10 @@ public class Copetran {
         ArrayList<String> salidas = new ArrayList<>();
         SimpleDateFormat fecha = new SimpleDateFormat("dd/MM/yyyy HH:mm");
         for (int i = 0; i < listaSalidas.size(); i++) {
-            String combo = listaSalidas.get(i).getMyRuta().getDestino() + " - " + fecha.format(listaSalidas.get(i).getFechaHora());
-            salidas.add(combo);
+            if(!listaSalidas.get(i).getEstado().equals("CANCELADA") && !listaSalidas.get(i).getEstado().equals("FINALIZADA")){
+                String combo = listaSalidas.get(i).getMyRuta().getDestino() + " - " + fecha.format(listaSalidas.get(i).getFechaHora());
+                salidas.add(combo);
+            }
         }
         return salidas;
     }
@@ -427,39 +429,6 @@ public class Copetran {
     
     // TIEMPOS
     // HORA DE LA PC
-    //METODO AUXILIAR PARA MOVER A LOS PASAJEROS 
-    private void procesarPuestosPasajeros(String textoSalida){
-        Salida salidaCancelada = buscarSalida(textoSalida);
-        for (int i = 0; i < listaPasajes.size(); i++) {
-            Pasaje pasajeCliente = listaPasajes.get(i);
-            if(pasajeCliente.getMySalida().equals(salidaCancelada)){
-                Salida planB = buscarSalidaAlternativa(salidaCancelada);
-                
-                if(planB != null){
-                    for (int j = 0; j < planB.getAsientosOcupados().length; j++) {
-                        if(!planB.getAsientosOcupados()[j]){
-                            planB.getAsientosOcupados()[j] = true;
-                            pasajeCliente.setMySalida(planB);
-                            pasajeCliente.setMyPuesto(planB.getMyBus().getMyPuestos()[j]);
-                            break;
-                        }
-                    }
-                }else{
-                    for (int j = 0; j < salidaCancelada.getMyBus().getMyPuestos().length; j++) {
-                        if(salidaCancelada.getMyBus().getMyPuestos()[j].equals(pasajeCliente.getMyPuesto())){
-                            salidaCancelada.getAsientosOcupados()[j] = false;
-                            break;
-                        }
-                    }
-                    pasajeCliente.setEstado("CANCELADO");
-                    salidaCancelada.setEstado("CANCELADA");
-                    this.cajaCopetran.setMontoCaja(this.cajaCopetran.getMontoCaja() - pasajeCliente.getValor());
-                    this.cajaCopetran.setTotalVendido(this.cajaCopetran.getTotalVendido() - pasajeCliente.getValor());
-                    this.cajaCopetran.setTotalRembolsado(this.cajaCopetran.getTotalRembolsado() + pasajeCliente.getValor());
-                }
-            }
-        }
-    }
     //CAMBIAR EL ESTADO DEPENDIENDO DE LA HORA DEL COMPUTADOR 
     public void actualizarEstadoRealSalidas(){
         Date horaPc = new Date();
@@ -498,7 +467,7 @@ public class Copetran {
                 s.setEstado("EN_VIAJE");
             }
             else {
-                s.setEstado("FINALIZADO");
+                s.setEstado("FINALIZADA");
                 s.getMyBus().setEstado("DISPONIBLE");
             }
         }
@@ -530,27 +499,57 @@ public class Copetran {
     }
     // CAMBIAR ESTADO DEL BUS
     public String cambiarEstadoBus(String placaBus){
+        SimpleDateFormat fecha = new SimpleDateFormat("dd/MM/yyyy HH:mm");
         Salida salidaAfectada = null;
+        String reporte = "CANCELACION DEL DIA: ";
+        int reprogramados = 0;
+        int reembolsados = 0;
         for (Salida s : listaSalidas) {
             if(s.getMyBus().getPlacaUnica().equalsIgnoreCase(placaBus)&& !s.getEstado().equals("FINALIZADO") && !s.getEstado().equals("CANCELADO")){
                 salidaAfectada = s;
                 break;
             }
         }
-            if(salidaAfectada == null){
-                buscarBus(placaBus).setEstado("MANTENIMIENTO");
-                return "EL BUS " + placaBus + " PASO A MANTENIMIENTO";
+        buscarBus(placaBus).setEstado("MANTENIMIENTO");
+        salidaAfectada.setEstado("CANCELADA");
+        String textoSalidaAfectada = salidaAfectada.getMyRuta().getDestino() + " - " + fecha.format(salidaAfectada.getFechaHora());
+        Salida salidaAlternatica = buscarSalidaAlternativa(textoSalidaAfectada);
+        reporte +=  salidaAfectada.getiD() + " (" + salidaAfectada.getMyRuta().getCodigo() + " --> " + salidaAfectada.getMyRuta().getDestino() + ") " + salidaAfectada.getFechaHora() + "\n\n";
+        
+        for (int i = 0; i < listaPasajes.size(); i++) {
+            Pasaje p = listaPasajes.get(i);
+            if(p.getMySalida().equals(salidaAfectada) && !p.getEstado().equalsIgnoreCase("CANCELADA")){
+                boolean reubicada = false;
+                
+                if(salidaAlternatica != null){
+                    for (int j = 0; j < salidaAlternatica.getAsientosOcupados().length; j++) {
+                        if(!salidaAlternatica.getAsientosOcupados()[j]){
+                            salidaAfectada.getAsientosOcupados()[p.getMyPuesto().getNumeroPuestos()] = false;
+                            p.setMySalida(salidaAlternatica);
+                            p.setMyPuesto(salidaAlternatica.getMyBus().getMyPuestos()[j]);
+                            salidaAlternatica.getAsientosOcupados()[j] = true;
+                            p.setEstado("PROGRAMADO");
+                            int sillaVieja = p.getMyPuesto().getNumeroPuestos();
+                            int sillaNueva = salidaAlternatica.getMyBus().getMyPuestos()[j].getNumeroPuestos();
+                            
+                            reporte += "\n" + p.getiD() + " - Pasajero: " + p.getMyPasajero().getCedula() + " - Silla: " + sillaVieja + " --> REPROGRAMADO  a " + salidaAlternatica.getiD() + " Silla:" + sillaNueva;
+                            reprogramados++;
+                            reubicada = true;
+                            break;
+                        }
+                    }
+                }
+                if(!reubicada){
+                    p.setEstado("CANCELADO");
+                    this.cajaCopetran.setMontoCaja(this.cajaCopetran.getMontoCaja() - p.getValor());
+                    this.cajaCopetran.setTotalRembolsado(this.cajaCopetran.getTotalRembolsado() + p.getValor());
+                    reporte += p.getiD() + " - Pasajero: " + p.getMyPasajero().getCedula() + " - Silla: " + p.getMyPuesto().getNumeroPuestos() + " --> REEMBOLSADO (Sin cupo)";
+                    reembolsados++;
+                }
             }
-            salidaAfectada.getMyBus().setEstado("MANTENIMIENTO");
-            salidaAfectada.setEstado("REPROGRAMADA");
-            SimpleDateFormat fecha = new SimpleDateFormat("dd/MM/yyyy HH:mm");
-            String textoReporte = salidaAfectada.getMyRuta().getDestino() + " - " + fecha.format(salidaAfectada.getFechaHora());
-            procesarPuestosPasajeros(textoReporte);
-            
-            if(salidaAfectada.getEstado().equals("CANCELADA")){
-                return "TUVIMOS QUE CANCELAR LA SALIDA: " + textoReporte;
-            }
-            return "REPROGRAMAMOS LA SALIDA: " + placaBus + ", A: " + salidaAfectada.getMyBus().getPlacaUnica() + " - " + textoReporte;
+        }
+        reporte += "\n===================================================================\nTOTAL REPROGRAMADOS: " + reprogramados + "\nTOTAL REEMBOLSADOS: " + reembolsados;
+        return reporte;
     }
     //METODO AUXILIAR PARA CARGAR TODOS LOS BUSES 
     public ArrayList<String> placasBusesTodas(){
@@ -585,27 +584,32 @@ public class Copetran {
         } return true;
     }
     //METODO AUXILIAR PARA BUSCAR UN BUS ALTERNATIVO 
-    private Salida buscarSalidaAlternativa(Salida origen) {
-    SimpleDateFormat fmt = new SimpleDateFormat("dd/MM/yyyy");
-    for (Salida s : listaSalidas) {
-        if (!s.equals(origen) && 
-            s.getMyRuta().getDestino().equalsIgnoreCase(origen.getMyRuta().getDestino()) &&
-            s.getEstado().equals("PROGRAMADA") &&
-            !s.getMyBus().getPlacaUnica().equalsIgnoreCase(origen.getMyBus().getPlacaUnica()) &&
-            fmt.format(s.getFechaHora()).equals(fmt.format(origen.getFechaHora()))) {
-            
-                for (boolean ocu : s.getAsientosOcupados()) {
-                    if (!ocu) return s;
+    private Salida buscarSalidaAlternativa(String textoSalida) {
+    Salida salidaAfectada = buscarSalida(textoSalida);
+        for (int i = 0; i < listaSalidas.size(); i++) {
+            Salida s = listaSalidas.get(i);
+            if(!s.equals(salidaAfectada) && !s.getMyBus().getPlacaUnica().equals(salidaAfectada.getMyBus().getPlacaUnica()) &&
+               s.getMyRuta().getDestino().equals(salidaAfectada.getMyRuta().getDestino())){
+                
+                long diferenaciaMili = s.getFechaHora().getTime() - salidaAfectada.getFechaHora().getTime();
+                long dia = 24 * 60 * 60 * 1000;
+                
+                if(diferenaciaMili >= 0 && diferenaciaMili <= dia){
+                    for (int j = 0; j < s.getAsientosOcupados().length; j++) {
+                        if(!s.getAsientosOcupados()[j]){
+                            return s;
+                        }
+                    }
                 }
             }
-        }return null; 
+        } return null;
     }
     //REPORTES
     // POR RUTAS DIARIA
-    public String generarReporteRutaDiaria(String textoRuta){
+    public String generarReporteRutaDiaria(){
         String reporte = "REPORTE DIARIO - RUTAS COPETRAN\n\n" +
-                         "Total vendido: $" + calcularTotalVendidoRuta(textoRuta) + "\n" +
-                         "Total en caja: $" + this.cajaCopetran.getMontoCaja() + "\n\n" + 
+                         "Total vendido: $" + cajaCopetran.getTotalVendido() + "\n" +
+                         "Total en caja: $" + cajaCopetran.getMontoCaja() + "\n\n" + 
                          "VENTAS POR RUTA:\n";
                          
         reporte += obtenerListaVentasPorRuta();
@@ -616,7 +620,8 @@ public class Copetran {
         double acumulado = 0;
         for (int i = 0; i < listaPasajes.size(); i++) {
             Pasaje p = listaPasajes.get(i);
-            if (p.getMySalida().getMyRuta().getDestino().equalsIgnoreCase(destino) && !p.getEstado().equalsIgnoreCase("CANCELADO")) {
+            String destinoPasaje = p.getMySalida().getMyRuta().getDestino();
+            if (destinoPasaje.equalsIgnoreCase(destino) && !p.getEstado().equalsIgnoreCase("CANCELADO")) {
                 acumulado += p.getValor();
             }    
         }
@@ -625,7 +630,7 @@ public class Copetran {
     private String obtenerListaVentasPorRuta() {
         String texto = "";
         for (int i = 0; i < listaRutas.size(); i++) {
-            String destino = listaRutas.get(i).getCodigo() + " - " + listaRutas.get(i).getDestino();
+            String destino = listaRutas.get(i).getDestino();
             texto += destino + " - $ " + calcularTotalVendidoRuta(destino) + "\n";
         }
         return texto;

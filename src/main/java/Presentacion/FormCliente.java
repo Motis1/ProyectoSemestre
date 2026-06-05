@@ -22,9 +22,7 @@ public class FormCliente extends javax.swing.JFrame {
         initComponents();
         this.myCliente = fc;
         cargarClientes(this.myCliente.nombresClientes());
-        cargarRutas(this.myCliente.destinoRutas());
         limpiarCliente();
-        condicionarClienteRegistro();
     }
 
     /**
@@ -56,8 +54,6 @@ public class FormCliente extends javax.swing.JFrame {
         jLabel4 = new javax.swing.JLabel();
         cmdPasajeroSeleccion = new javax.swing.JComboBox<>();
         cmbVentaPasaje = new javax.swing.JButton();
-        jLabel6 = new javax.swing.JLabel();
-        cmbElegirRuta = new javax.swing.JComboBox<>();
         cmbMostrarReporte = new javax.swing.JButton();
 
         jLabel24.setFont(new java.awt.Font("Segoe UI", 1, 24)); // NOI18N
@@ -109,11 +105,6 @@ public class FormCliente extends javax.swing.JFrame {
         cmbVentaPasaje.setText("IR A VENTA DE PASAJES");
         cmbVentaPasaje.addActionListener(this::cmbVentaPasajeActionPerformed);
 
-        jLabel6.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
-        jLabel6.setText("REPORTE DE VENTAS POR RUTA:");
-
-        cmbElegirRuta.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
-
         cmbMostrarReporte.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
         cmbMostrarReporte.setText("MOSTRAR REPORTE DE VENTAS POR RUTA");
         cmbMostrarReporte.addActionListener(this::cmbMostrarReporteActionPerformed);
@@ -151,8 +142,6 @@ public class FormCliente extends javax.swing.JFrame {
                     .addComponent(jLabel4)
                     .addComponent(cmdPasajeroSeleccion, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(cmbVentaPasaje, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(jLabel6)
-                    .addComponent(cmbElegirRuta, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(cmbMostrarReporte, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addGap(18, 18, 18)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -193,10 +182,6 @@ public class FormCliente extends javax.swing.JFrame {
                         .addComponent(cmdPasajeroSeleccion, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                         .addComponent(cmbVentaPasaje)
-                        .addGap(18, 18, 18)
-                        .addComponent(jLabel6)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(cmbElegirRuta, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                         .addComponent(cmbMostrarReporte))
                     .addGroup(layout.createSequentialGroup()
@@ -236,13 +221,8 @@ public class FormCliente extends javax.swing.JFrame {
 
     private void cmbMostrarReporteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cmbMostrarReporteActionPerformed
         // TODO add your handling code here:
-        String destinoSeleccionado = cmbElegirRuta.getSelectedItem().toString();
-        if(!destinoSeleccionado.equals("Seleccione aqui...")){
-            String reporteFinal = this.myCliente.generarReporteRutaDiaria(destinoSeleccionado);
-            txtMostrar1.setText(reporteFinal);
-        }else{
-            txtMostrar1.setText("PORFAVOR SELECCIONE UN DESTINO");
-        }
+        String reporteFinal = this.myCliente.generarReporteRutaDiaria();
+        txtMostrar1.setText(reporteFinal);
     }//GEN-LAST:event_cmbMostrarReporteActionPerformed
 
     /**
@@ -251,7 +231,6 @@ public class FormCliente extends javax.swing.JFrame {
     
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JComboBox<String> cmbElegirRuta;
     private javax.swing.JButton cmbMostrarReporte;
     private javax.swing.JButton cmbVentaPasaje;
     private javax.swing.JComboBox<String> cmdPasajeroSeleccion;
@@ -265,7 +244,6 @@ public class FormCliente extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
     private javax.swing.JLabel jLabel5;
-    private javax.swing.JLabel jLabel6;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JScrollPane jScrollPane2;
     private javax.swing.JTextField txtCedulaCliente;
@@ -291,26 +269,11 @@ public class FormCliente extends javax.swing.JFrame {
         this.txtNombreCliente.setText("");
     }
     private void condicionarClienteRegistro(){
-        if(this.txtNombreCliente.getText() == null){
-            this.txtMostrar.setText("DEBE INGRESAR EL NOMBRE PARA HACER EL REGISTRO");
-        }
-        if(this.txtCedulaCliente.getText() == null){
-            this.txtMostrar.setText("DEBE INGRESAR LA CEDULA PARA HACER EL REGISTRO");
-        }
-        if(this.txtCelularCliente.getText() == null){
-            this.txtMostrar.setText("DEBE INGRESAR EL NUMERO TELEFONICO PARA HACER EL REGISTRO");
-        }
-        if(this.txtGmailCliente.getText() == null){
-            this.txtMostrar.setText("DEBE INGRESAR EL CORREO PARA HACER EL REGISTRO");
+        if(this.txtNombreCliente.getText().isEmpty() || this.txtCedulaCliente.getText().isEmpty()
+            || this.txtCelularCliente.getText().isEmpty() ||  this.txtGmailCliente.getText().isEmpty()){
+            
+            this.txtMostrar.setText("TODOS LOS CAMPOS SON NECESARIOS");
         }
         
-    }
-
-    private void cargarRutas(ArrayList<String> destinoRutas) {
-        this.cmbElegirRuta.removeAllItems();
-        this.cmbElegirRuta.addItem("Seleccione aqui...");
-        for (int i = 0; i < destinoRutas.size(); i++) {
-            cmbElegirRuta.addItem(destinoRutas.get(i));
-        }
     }
 }

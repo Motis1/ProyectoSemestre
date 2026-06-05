@@ -660,6 +660,7 @@ public class FormAdmin extends javax.swing.JFrame {
     private void limpiarRuta(){
         this.txtDestino.setText("");
         this.txtTarifa.setText("");
+        this.txtTiempoDeViaje.setText("");
     }
 
     private void cargarPlacas(ArrayList<String> placasBusesTodas) {
